@@ -1,0 +1,818 @@
+<title>Celda Ciberfísica</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+
+<style>
+:root{
+  --ground:#F0F3F2; --surface:#FFFFFF; --surface-2:#E5EAE9; --band:#DCE3E2;
+  --ink:#0F1619; --ink-2:#4A585D; --ink-3:#7C8A8F; --rule:#C6D0CF;
+  --accent:#D8491A; --accent-soft:#F8E4DB;
+  --data:#136A80; --data-soft:#DCEBEF;
+  --ok:#2C7A4E; --warn:#A8721A; --crit:#AC2A21;
+  --shadow:0 1px 2px rgba(15,22,25,.06), 0 8px 24px -12px rgba(15,22,25,.18);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0E1316; --surface:#161D21; --surface-2:#1E272C; --band:#141B1F;
+    --ink:#E0E7E9; --ink-2:#9BABB1; --ink-3:#6D7E85; --rule:#2A363C;
+    --accent:#FF7038; --accent-soft:#3A1C10;
+    --data:#54BBD2; --data-soft:#0F2A32;
+    --ok:#57B67F; --warn:#DCA746; --crit:#EA6459;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0E1316; --surface:#161D21; --surface-2:#1E272C; --band:#141B1F;
+  --ink:#E0E7E9; --ink-2:#9BABB1; --ink-3:#6D7E85; --rule:#2A363C;
+  --accent:#FF7038; --accent-soft:#3A1C10;
+  --data:#54BBD2; --data-soft:#0F2A32;
+  --ok:#57B67F; --warn:#DCA746; --crit:#EA6459;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"Source Sans 3","Segoe UI",system-ui,sans-serif;
+  font-size:17px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px; margin:0 auto; padding:0 28px 96px}
+
+/* ---------- encabezado tipo carátula de plano ---------- */
+.plate{
+  border-bottom:2px solid var(--ink);
+  padding:56px 0 20px; margin-bottom:44px;
+}
+.plate .eyebrow{
+  font-family:"JetBrains Mono",monospace; font-size:12px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--accent); margin:0 0 18px;
+}
+h1{
+  font-family:"Archivo",Impact,sans-serif; font-weight:700;
+  font-size:clamp(2.6rem,6.5vw,4.4rem); line-height:.98; letter-spacing:-.022em;
+  margin:0 0 18px; text-wrap:balance;
+}
+.plate .lede{
+  font-size:1.18rem; color:var(--ink-2); max-width:62ch; margin:0 0 30px;
+}
+.stamp{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(148px,1fr));
+  gap:1px; background:var(--rule); border:1px solid var(--rule);
+}
+.stamp div{background:var(--ground); padding:11px 14px}
+.stamp dt{
+  font-family:"JetBrains Mono",monospace; font-size:10px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--ink-3); margin:0 0 3px;
+}
+.stamp dd{margin:0; font-weight:600; font-size:.95rem; font-variant-numeric:tabular-nums}
+
+/* ---------- secciones = hojas del juego de planos ---------- */
+section{margin:0 0 60px; scroll-margin-top:20px}
+.sheet{
+  display:flex; align-items:baseline; gap:14px;
+  border-bottom:1px solid var(--ink); padding-bottom:9px; margin-bottom:26px;
+}
+.sheet .code{
+  font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:600;
+  color:var(--accent); letter-spacing:.06em; flex:none;
+}
+.sheet h2{
+  font-family:"Archivo",sans-serif; font-weight:600; font-size:1.6rem;
+  letter-spacing:-.014em; margin:0; text-wrap:balance;
+}
+h3{
+  font-family:"Archivo",sans-serif; font-weight:600; font-size:1.1rem;
+  letter-spacing:-.005em; margin:32px 0 10px;
+}
+p{margin:0 0 15px; max-width:68ch}
+ul{margin:0 0 15px; padding-left:1.15rem; max-width:68ch}
+li{margin-bottom:5px}
+strong{font-weight:600}
+code{
+  font-family:"JetBrains Mono",monospace; font-size:.86em;
+  background:var(--surface-2); padding:.1em .38em; border-radius:2px;
+}
+
+/* ---------- alerta ---------- */
+.alarm{
+  background:var(--accent-soft); border-left:4px solid var(--accent);
+  padding:20px 24px; margin:0 0 34px;
+}
+.alarm .tag{
+  font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--accent); font-weight:600; display:block; margin-bottom:7px;
+}
+.alarm p:last-child{margin-bottom:0}
+
+/* ---------- figuras ---------- */
+figure{
+  margin:26px 0 30px; background:var(--surface);
+  border:1px solid var(--rule); box-shadow:var(--shadow);
+}
+.canvas{overflow-x:auto; padding:22px}
+figure svg{display:block; width:100%; min-width:640px; height:auto; color:var(--ink)}
+figcaption{
+  border-top:1px solid var(--rule); padding:11px 22px;
+  font-size:.87rem; color:var(--ink-2);
+}
+figcaption b{
+  font-family:"JetBrains Mono",monospace; font-size:.8rem; color:var(--accent);
+  letter-spacing:.06em; margin-right:8px;
+}
+
+/* ---------- tablas ---------- */
+.tbl{overflow-x:auto; margin:0 0 26px; border:1px solid var(--rule); background:var(--surface)}
+table{border-collapse:collapse; width:100%; min-width:560px; font-size:.93rem}
+th,td{text-align:left; padding:9px 14px; border-bottom:1px solid var(--rule); vertical-align:top}
+th{
+  font-family:"JetBrains Mono",monospace; font-size:10.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink-3); font-weight:600;
+  background:var(--surface-2); white-space:nowrap;
+}
+tr:last-child td{border-bottom:none}
+td.num{font-variant-numeric:tabular-nums; white-space:nowrap}
+.chip{
+  display:inline-block; font-family:"JetBrains Mono",monospace; font-size:10.5px;
+  font-weight:600; letter-spacing:.06em; padding:2px 7px; border-radius:2px; white-space:nowrap;
+}
+.chip.c{background:var(--crit); color:#fff}
+.chip.w{background:var(--warn); color:#fff}
+.chip.o{background:var(--ok); color:#fff}
+.chip.d{background:var(--data); color:#fff}
+
+/* ---------- WBS ---------- */
+.wbs{
+  font-family:"JetBrains Mono",monospace; font-size:.83rem; line-height:1.75;
+  background:var(--surface); border:1px solid var(--rule);
+  padding:20px 22px; overflow-x:auto; margin:0 0 26px; white-space:pre;
+  color:var(--ink-2);
+}
+.wbs b{color:var(--ink); font-weight:600}
+.wbs i{color:var(--accent); font-style:normal}
+
+/* ---------- rejillas ---------- */
+.cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(268px,1fr)); gap:16px; margin:0 0 26px}
+.card{background:var(--surface); border:1px solid var(--rule); padding:18px 20px}
+.card .n{
+  font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.1em;
+  color:var(--data); font-weight:600; display:block; margin-bottom:6px;
+}
+.card h4{font-family:"Archivo",sans-serif; font-size:1rem; margin:0 0 7px; font-weight:600}
+.card p{font-size:.9rem; color:var(--ink-2); margin:0; max-width:none}
+
+.split{display:grid; grid-template-columns:1fr 1fr; gap:22px; margin:0 0 26px}
+@media (max-width:760px){.split{grid-template-columns:1fr}}
+.split .box{background:var(--surface); border:1px solid var(--rule); padding:18px 20px}
+.split .box h4{font-family:"Archivo",sans-serif; font-size:1rem; margin:0 0 9px}
+.split .box ul{margin:0; font-size:.92rem}
+.yes{border-top:3px solid var(--ok)}
+.no{border-top:3px solid var(--crit)}
+
+.eq{
+  background:var(--surface); border:1px solid var(--rule);
+  border-left:3px solid var(--data);
+  padding:16px 20px; margin:0 0 22px; overflow-x:auto;
+  font-family:"JetBrains Mono",monospace; font-size:.88rem; line-height:1.9;
+}
+.eq .v{color:var(--data); font-weight:600}
+
+footer{
+  border-top:2px solid var(--ink); margin-top:56px; padding-top:20px;
+  font-family:"JetBrains Mono",monospace; font-size:11.5px;
+  color:var(--ink-3); letter-spacing:.05em;
+  display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+}
+</style>
+
+<div class="wrap">
+
+<header class="plate">
+  <p class="eyebrow">Reto MR3005C.601 · Ago–Dic 2026 · Plan de dirección v1.0</p>
+  <h1>Celda ciberfísica de alimentación robotizada</h1>
+  <p class="lede">Un AGV omnidireccional, un brazo colaborativo sobre riel y un verificador de visión, coordinados con un CNC Haas por MTConnect. Dieciséis semanas, cuatro evidencias individuales, cero holgura.</p>
+  <dl class="stamp">
+    <div><dt>Director</dt><dd>Rodrigo Herrera</dd></div>
+    <div><dt>Duración</dt><dd>16 semanas</dd></div>
+    <div><dt>Materiales</dt><dd>$84,040 MXN</dd></div>
+    <div><dt>Peso académico</dt><dd>36 %</dd></div>
+    <div><dt>Holgura</dt><dd>0 días</dd></div>
+  </dl>
+</header>
+
+<section>
+  <div class="sheet"><span class="code">SH-01</span><h2>La restricción que manda</h2></div>
+
+  <div class="alarm">
+    <span class="tag">Ruta crítica</span>
+    <p><strong>Lo que decide este proyecto son las compras, no la programación.</strong> El riel lineal y el LiDAR tardan seis semanas en llegar. Si la orden sale al terminar el diseño de detalle —lo natural— el material aterriza el 8 de noviembre y quedan tres semanas para integrar, validar y documentar.</p>
+    <p>Por eso la emisión de órdenes de compra es un hito duro el <strong>6 de septiembre</strong>, con el diseño congelado solo en lo que define la compra: interfaces mecánicas y eléctricas. No el CAD terminado.</p>
+  </div>
+
+  <figure>
+    <div class="canvas">
+      <svg viewBox="0 0 1000 400" role="img" aria-label="Cronograma de 16 semanas con dos escenarios de compra: emitir la orden el 6 de septiembre deja siete semanas de integración, emitirla el 27 de septiembre deja menos de tres.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+          </marker>
+        </defs>
+
+        <!-- eje de meses -->
+        <line x1="80" y1="44" x2="960" y2="44" stroke="currentColor" stroke-width="1" opacity=".35"/>
+        <g font-family="JetBrains Mono, monospace" font-size="11" fill="currentColor" opacity=".65">
+          <text x="80" y="34">ago</text>
+          <text x="244" y="34">sep</text>
+          <text x="468" y="34">oct</text>
+          <text x="699" y="34">nov</text>
+          <text x="923" y="34">dic</text>
+        </g>
+        <g stroke="currentColor" stroke-width="1" opacity=".2">
+          <line x1="244" y1="44" x2="244" y2="330"/>
+          <line x1="468" y1="44" x2="468" y2="330"/>
+          <line x1="699" y1="44" x2="699" y2="330"/>
+          <line x1="923" y1="44" x2="923" y2="330"/>
+        </g>
+
+        <!-- fases -->
+        <g font-family="JetBrains Mono, monospace" font-size="11" fill="currentColor">
+          <rect x="80" y="58" width="104" height="20" fill="currentColor" opacity=".22"/>
+          <text x="88" y="72" font-size="10" opacity=".8">F0</text>
+
+          <rect x="184" y="84" width="105" height="20" fill="var(--accent)"/>
+          <text x="192" y="98" font-size="10" fill="#fff">F1 definición + compras</text>
+
+          <rect x="289" y="110" width="157" height="20" fill="currentColor" opacity=".38"/>
+          <text x="297" y="124" font-size="10">F2 diseño de detalle</text>
+
+          <rect x="446" y="136" width="208" height="20" fill="currentColor" opacity=".38"/>
+          <text x="454" y="150" font-size="10">F3 fabricación</text>
+
+          <rect x="654" y="162" width="105" height="20" fill="currentColor" opacity=".38"/>
+          <text x="662" y="176" font-size="10">F4 navegación</text>
+
+          <rect x="759" y="188" width="104" height="20" fill="currentColor" opacity=".38"/>
+          <text x="767" y="202" font-size="10">F5 celda</text>
+
+          <rect x="863" y="214" width="97" height="20" fill="currentColor" opacity=".38"/>
+          <text x="871" y="228" font-size="10">F6 cierre</text>
+        </g>
+
+        <!-- separador -->
+        <line x1="80" y1="252" x2="960" y2="252" stroke="currentColor" stroke-width="1" opacity=".3" stroke-dasharray="3 3"/>
+        <text x="80" y="268" font-family="JetBrains Mono, monospace" font-size="10" fill="currentColor" opacity=".6" letter-spacing="1">DOS ESCENARIOS DE COMPRA — LEAD TIME 6 SEMANAS</text>
+
+        <!-- escenario A -->
+        <rect x="281" y="280" width="314" height="18" fill="var(--data)"/>
+        <text x="289" y="293" font-family="JetBrains Mono, monospace" font-size="10" fill="#fff">PO 6 sep → tránsito</text>
+        <rect x="595" y="280" width="365" height="18" fill="var(--ok)" opacity=".85"/>
+        <text x="603" y="293" font-family="JetBrains Mono, monospace" font-size="10" fill="#fff">7 semanas para integrar y validar</text>
+
+        <!-- escenario B -->
+        <rect x="438" y="306" width="313" height="18" fill="var(--warn)"/>
+        <text x="446" y="319" font-family="JetBrains Mono, monospace" font-size="10" fill="#fff">PO 27 sep → tránsito</text>
+        <rect x="751" y="306" width="209" height="18" fill="var(--crit)"/>
+        <text x="759" y="319" font-family="JetBrains Mono, monospace" font-size="10" fill="#fff">3 semanas — no alcanza</text>
+
+        <!-- hito -->
+        <line x1="281" y1="84" x2="281" y2="300" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <circle cx="281" cy="84" r="4" fill="var(--accent)"/>
+        <text x="288" y="358" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" fill="var(--accent)">H1 · 6 sep · emitir PO críticas</text>
+        <line x1="281" y1="340" x2="281" y2="348" stroke="var(--accent)" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <figcaption><b>FIG. 1</b>Tres semanas de retraso en la orden de compra se convierten en cuatro semanas menos de integración. Las fases no se comprimen: se recorta el final, que es donde viven las tres evidencias que más pesan.</figcaption>
+  </figure>
+
+  <p>Mientras el material viaja, el trabajo que <em>no</em> está en la ruta crítica avanza sin bloqueo: CAD y planos, Nav2 y SLAM en simulación, el cliente MTConnect contra un agente simulado, el algoritmo de visión sobre fotos del fixture, y la simulación de estaciones en FlexSim. Ninguna semana debería cerrarse con «estábamos esperando material».</p>
+</section>
+
+<section>
+  <div class="sheet"><span class="code">SH-02</span><h2>Arquitectura de la celda</h2></div>
+
+  <p>Cuatro entidades físicas coordinadas por una capa de red sobre Ethernet. El AGV entrega el pallet en una estación de handoff adyacente al CNC en lugar de acoplarse a la máquina: esa división relaja la repetibilidad exigida al SLAM a <strong>±10 mm</strong> y traslada la transferencia fina al brazo.</p>
+
+  <figure>
+    <div class="canvas">
+      <svg viewBox="0 0 1000 430" role="img" aria-label="Arquitectura de la celda: estación de carga, AGV, handoff, cobot sobre riel y CNC Haas, con el supervisor coordinando por MQTT, MTConnect, SMB y entradas y salidas discretas.">
+        <defs>
+          <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+          </marker>
+          <marker id="a2d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--data)"/>
+          </marker>
+        </defs>
+
+        <!-- supervisor -->
+        <rect x="330" y="26" width="330" height="52" fill="var(--data)"/>
+        <text x="495" y="49" text-anchor="middle" font-family="Archivo, sans-serif" font-size="15" font-weight="600" fill="#fff">Supervisor de celda</text>
+        <text x="495" y="67" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="#fff" opacity=".85">máquina de estados · dashboard OEE</text>
+
+        <!-- enlaces supervisor -->
+        <g stroke="var(--data)" stroke-width="1.4" fill="none" marker-end="url(#a2d)">
+          <path d="M400,78 L270,78 L270,196"/>
+          <path d="M560,78 L640,78 L640,196"/>
+          <path d="M620,78 L830,78 L830,196"/>
+        </g>
+        <g font-family="JetBrains Mono, monospace" font-size="10" fill="var(--data)">
+          <text x="278" y="128">MQTT / TLS</text>
+          <text x="648" y="128">TCP/IP</text>
+          <text x="700" y="98">MTConnect :8082 · SMB · I/O</text>
+        </g>
+
+        <!-- estaciones -->
+        <g font-family="Archivo, sans-serif" font-size="13.5" font-weight="600">
+          <rect x="30" y="196" width="150" height="72" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="105" y="228" text-anchor="middle" fill="currentColor">Estación</text>
+          <text x="105" y="246" text-anchor="middle" fill="currentColor">de carga</text>
+
+          <rect x="210" y="196" width="150" height="72" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+          <text x="285" y="228" text-anchor="middle" fill="currentColor">AGV mecanum</text>
+          <text x="285" y="247" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="400" fill="currentColor" opacity=".75">SLAM · Nav2 · NXP</text>
+
+          <rect x="390" y="196" width="150" height="72" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="465" y="228" text-anchor="middle" fill="currentColor">Handoff</text>
+          <text x="465" y="247" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="400" fill="currentColor" opacity=".75">AprilTag · conos</text>
+
+          <rect x="570" y="196" width="150" height="72" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+          <text x="645" y="228" text-anchor="middle" fill="currentColor">Brazo + riel</text>
+          <text x="645" y="247" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="400" fill="currentColor" opacity=".75">7.º eje · 2.5 m</text>
+
+          <rect x="750" y="196" width="150" height="72" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="825" y="228" text-anchor="middle" fill="currentColor">CNC Haas</text>
+          <text x="825" y="247" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="400" fill="currentColor" opacity=".75">fixture indexado</text>
+        </g>
+
+        <!-- flujo físico -->
+        <g stroke="currentColor" stroke-width="1.6" fill="none" marker-end="url(#a2)">
+          <line x1="182" y1="232" x2="206" y2="232"/>
+          <line x1="362" y1="232" x2="386" y2="232"/>
+          <line x1="542" y1="232" x2="566" y2="232"/>
+          <line x1="722" y1="232" x2="746" y2="232"/>
+        </g>
+        <g font-family="JetBrains Mono, monospace" font-size="9.5" fill="currentColor" opacity=".8" text-anchor="middle">
+          <text x="194" y="222">carga</text>
+          <text x="374" y="222">navega</text>
+          <text x="554" y="222">toma</text>
+          <text x="734" y="222">deposita</text>
+        </g>
+
+        <!-- visión -->
+        <rect x="750" y="316" width="150" height="58" fill="var(--data-soft)" stroke="var(--data)" stroke-width="2"/>
+        <text x="825" y="340" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13.5" font-weight="600" fill="currentColor">Visión RGB-D</text>
+        <text x="825" y="358" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="currentColor" opacity=".75">pass / fail</text>
+        <path d="M825,314 L825,272" stroke="var(--data)" stroke-width="1.4" fill="none" marker-end="url(#a2d)"/>
+        <text x="836" y="296" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--data)">verifica</text>
+        <path d="M748,345 L440,345 L440,300 L465,300 L465,272" stroke="var(--data)" stroke-width="1.4" fill="none" stroke-dasharray="4 3"/>
+        <text x="470" y="345" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--data)">veredicto → supervisor (MQTT)</text>
+
+        <!-- retorno -->
+        <path d="M285,270 L285,398 L105,398 L105,270" stroke="currentColor" stroke-width="1.4" fill="none" stroke-dasharray="5 4" marker-end="url(#a2)"/>
+        <text x="195" y="392" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="currentColor" opacity=".75">retorna con pieza terminada</text>
+      </svg>
+    </div>
+    <figcaption><b>FIG. 2</b>Lo naranja es lo que el equipo fabrica; lo gris es infraestructura existente. Las líneas azules son datos, las negras material. El supervisor observa el CNC pero no lo manda: la escritura viaja por el canal discreto de M-códigos.</figcaption>
+  </figure>
+
+  <h3>Por qué tres protocolos y no uno</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Capa</th><th>Protocolo</th><th>Dirección</th><th>Qué resuelve</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Observación</strong></td><td><code>MTConnect :8082</code></td><td>Solo lectura</td><td>Estado del CNC cada 250 ms: ejecución, modo, programa, alarmas</td></tr>
+      <tr><td><strong>Transferencia</strong></td><td><code>Net Share (SMB)</code></td><td>Escritura</td><td>Deposita los programas <code>.nc</code> con hash para no sobrescribir</td></tr>
+      <tr><td><strong>Handshake</strong></td><td><code>M-códigos + I/O</code></td><td>Bidireccional</td><td>Habilita ciclo y avisa fin de ciclo. Es lo que MTConnect no puede hacer</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <div class="sheet"><span class="code">SH-03</span><h2>Cómputo y seguridad</h2></div>
+
+  <p>Tres capas con horizontes temporales distintos. La regla que las gobierna: <strong>el canal de seguridad no pasa por el software de navegación</strong>. El paro de emergencia es cableado y actúa sobre la etapa de potencia; si la SBC se cuelga o el NXP se traba, el vehículo se detiene igual.</p>
+
+  <figure>
+    <div class="canvas">
+      <svg viewBox="0 0 900 360" role="img" aria-label="Tres capas de cómputo: microcontrolador NXP en tiempo real duro, computadora de placa con ROS 2 en tiempo real suave, y supervisor de celda; el canal de seguridad va cableado por fuera de las tres.">
+        <defs>
+          <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+          </marker>
+          <marker id="a3c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--crit)"/>
+          </marker>
+        </defs>
+
+        <!-- capas -->
+        <g>
+          <rect x="40" y="34" width="560" height="76" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="60" y="62" font-family="Archivo, sans-serif" font-size="15" font-weight="600" fill="currentColor">Supervisor de celda</text>
+          <text x="60" y="84" font-family="Source Sans 3, sans-serif" font-size="12.5" fill="currentColor" opacity=".8">Máquina de estados · MTConnect · SMB · handshake I/O</text>
+          <text x="580" y="62" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--data)">orquestación</text>
+        </g>
+        <g>
+          <rect x="40" y="130" width="560" height="76" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="60" y="158" font-family="Archivo, sans-serif" font-size="15" font-weight="600" fill="currentColor">SBC Linux · ROS 2 Humble</text>
+          <text x="60" y="180" font-family="Source Sans 3, sans-serif" font-size="12.5" fill="currentColor" opacity=".8">SLAM · Nav2 · docking AprilTag · cliente MQTT</text>
+          <text x="580" y="158" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--data)">tiempo real suave</text>
+        </g>
+        <g>
+          <rect x="40" y="226" width="560" height="76" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+          <text x="60" y="254" font-family="Archivo, sans-serif" font-size="15" font-weight="600" fill="currentColor">NXP S32K312</text>
+          <text x="60" y="276" font-family="Source Sans 3, sans-serif" font-size="12.5" fill="currentColor" opacity=".8">PWM · encoders · IMU · lazos PI/PD/PID · watchdog</text>
+          <text x="580" y="254" text-anchor="end" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--accent)">≥ 200 Hz</text>
+        </g>
+
+        <!-- flechas entre capas -->
+        <g stroke="currentColor" stroke-width="1.5" fill="none">
+          <line x1="320" y1="110" x2="320" y2="126" marker-end="url(#a3)"/>
+          <line x1="320" y1="206" x2="320" y2="222" marker-end="url(#a3)"/>
+        </g>
+        <text x="332" y="122" font-family="JetBrains Mono, monospace" font-size="10" fill="currentColor" opacity=".75">misión</text>
+        <text x="332" y="218" font-family="JetBrains Mono, monospace" font-size="10" fill="currentColor" opacity=".75">consigna de velocidad</text>
+
+        <!-- canal de seguridad -->
+        <rect x="660" y="34" width="200" height="268" fill="none" stroke="var(--crit)" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="760" y="60" text-anchor="middle" font-family="Archivo, sans-serif" font-size="14" font-weight="600" fill="var(--crit)">Canal de seguridad</text>
+        <text x="760" y="80" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="var(--crit)">cableado · independiente</text>
+
+        <rect x="690" y="104" width="140" height="46" fill="var(--surface)" stroke="var(--crit)" stroke-width="1.4"/>
+        <text x="760" y="132" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12.5" fill="currentColor">Paro de emergencia</text>
+
+        <rect x="690" y="186" width="140" height="46" fill="var(--surface)" stroke="var(--crit)" stroke-width="1.4"/>
+        <text x="760" y="214" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12.5" fill="currentColor">Etapa de potencia</text>
+
+        <line x1="760" y1="150" x2="760" y2="182" stroke="var(--crit)" stroke-width="1.6" fill="none" marker-end="url(#a3c)"/>
+        <text x="760" y="262" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12" fill="var(--crit)">Corta sin pasar por</text>
+        <text x="760" y="280" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12" fill="var(--crit)">ningún software</text>
+
+        <text x="450" y="336" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12.5" fill="currentColor" opacity=".75">Si el software falla, el vehículo se detiene igual. Esa es la única garantía que cuenta.</text>
+      </svg>
+    </div>
+    <figcaption><b>FIG. 3</b>El riesgo R5 vive en la capa naranja: cuatro lazos de control a 200 Hz sobre un solo S32K312. Se mide en la semana 8, no en la 14, porque el plan B —un segundo microcontrolador— necesita tiempo de compra.</figcaption>
+  </figure>
+
+  <h3>Cinemática mecanum</h3>
+  <p>Con cuatro ruedas a 45°, semiancho <em>lₓ</em>, semilargo <em>l<sub>y</sub></em> y radio <em>R</em>, la cinemática inversa reparte la velocidad del cuerpo entre las cuatro ruedas:</p>
+  <div class="eq">
+<span class="v">ω₁</span> = (1/R) · ( v<sub>x</sub> − v<sub>y</sub> − (lₓ + l<sub>y</sub>) ω<sub>z</sub> )   ← frontal izquierda
+<span class="v">ω₂</span> = (1/R) · ( v<sub>x</sub> + v<sub>y</sub> + (lₓ + l<sub>y</sub>) ω<sub>z</sub> )   ← frontal derecha
+<span class="v">ω₃</span> = (1/R) · ( v<sub>x</sub> + v<sub>y</sub> − (lₓ + l<sub>y</sub>) ω<sub>z</sub> )   ← trasera izquierda
+<span class="v">ω₄</span> = (1/R) · ( v<sub>x</sub> − v<sub>y</sub> + (lₓ + l<sub>y</sub>) ω<sub>z</sub> )   ← trasera derecha
+  </div>
+  <p><strong>Verifiquen los signos contra el sentido real de los rodillos antes de energizar.</strong> Un signo invertido hace que el AGV se mueva en diagonal cuando se le pide avanzar, y el síntoma se confunde con un problema de sintonía. Además: las mecanum patinan por diseño, así que la odometría por encoders acumula error rápido — la fusión con IMU y la corrección por LiDAR no son opcionales.</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Controlador</th><th>Dónde</th><th>Por qué ese y no otro</th></tr></thead>
+    <tbody>
+      <tr><td><span class="chip d">PI</span></td><td>Velocidad de rueda</td><td>Elimina error permanente. Sin derivativo porque el encoder mete ruido que la derivada amplifica</td></tr>
+      <tr><td><span class="chip d">PD</span></td><td>Posición del riel y orientación</td><td>Amortigua sin introducir error de estado estacionario</td></tr>
+      <tr><td><span class="chip d">PID</span></td><td>Posición del AGV en docking</td><td>Necesita precisión y amortiguamiento a la vez</td></tr>
+    </tbody>
+  </table></div>
+  <p>Obligatorios en la implementación: <strong>anti-windup</strong> en el integral, filtro pasa-bajas en el derivativo, watchdog que rampa a cero si no llega comando en 200 ms, y rampa de aceleración para no derrapar los rodillos. Cada juego de ganancias se documenta en bitácora — lo pide control de calidad.</p>
+</section>
+
+<section>
+  <div class="sheet"><span class="code">SH-04</span><h2>Ciclo de operación</h2></div>
+
+  <p>El veredicto de visión es una <strong>guarda obligatoria</strong>: el supervisor solo habilita el ciclo del CNC cuando la cámara confirma que la pieza está bien asentada. Un rechazo aborta la secuencia y pide intervención manual, en lugar de arriesgar una colisión herramienta–fixture.</p>
+
+  <figure>
+    <div class="canvas">
+      <svg viewBox="0 0 940 470" role="img" aria-label="Máquina de estados del ciclo: el AGV llega al handoff, el brazo transfiere la pieza al fixture, la visión verifica, y solo si aprueba se habilita el ciclo del CNC; si rechaza, se aborta y se pide intervención manual.">
+        <defs>
+          <marker id="a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+          </marker>
+          <marker id="a4c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--crit)"/>
+          </marker>
+          <marker id="a4o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--ok)"/>
+          </marker>
+        </defs>
+
+        <g font-family="Source Sans 3, sans-serif" font-size="12.5" fill="currentColor">
+          <!-- columna izquierda -->
+          <rect x="40" y="30" width="200" height="40" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.6"/>
+          <text x="140" y="55" text-anchor="middle" font-weight="600">IDLE</text>
+
+          <rect x="40" y="94" width="200" height="40" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="140" y="119" text-anchor="middle">AGV en tránsito</text>
+
+          <rect x="40" y="158" width="200" height="40" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="140" y="183" text-anchor="middle">AGV en handoff</text>
+
+          <rect x="40" y="222" width="200" height="40" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="140" y="247" text-anchor="middle">Brazo toma pieza</text>
+
+          <rect x="40" y="286" width="200" height="40" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="140" y="311" text-anchor="middle">Recorre el riel</text>
+
+          <rect x="40" y="350" width="200" height="40" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="140" y="375" text-anchor="middle">Deposita en fixture</text>
+
+          <!-- columna derecha -->
+          <rect x="480" y="350" width="200" height="40" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="580" y="375" text-anchor="middle">Retrae a pose segura</text>
+
+          <rect x="480" y="222" width="200" height="40" fill="var(--data-soft)" stroke="var(--data)" stroke-width="2"/>
+          <text x="580" y="247" text-anchor="middle" font-weight="600">Visión verifica</text>
+
+          <rect x="480" y="158" width="200" height="40" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="580" y="183" text-anchor="middle">CNC maquinando</text>
+
+          <rect x="480" y="94" width="200" height="40" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="580" y="119" text-anchor="middle">Brazo retira pieza</text>
+
+          <rect x="480" y="30" width="200" height="40" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="580" y="55" text-anchor="middle">AGV retorna</text>
+
+          <!-- aborto -->
+          <rect x="740" y="286" width="170" height="40" fill="var(--surface)" stroke="var(--crit)" stroke-width="2"/>
+          <text x="825" y="311" text-anchor="middle" fill="var(--crit)" font-weight="600">Aborta ciclo</text>
+        </g>
+
+        <!-- flechas descendentes izquierda -->
+        <g stroke="currentColor" stroke-width="1.4" fill="none" marker-end="url(#a4)">
+          <line x1="140" y1="70" x2="140" y2="90"/>
+          <line x1="140" y1="134" x2="140" y2="154"/>
+          <line x1="140" y1="198" x2="140" y2="218"/>
+          <line x1="140" y1="262" x2="140" y2="282"/>
+          <line x1="140" y1="326" x2="140" y2="346"/>
+          <line x1="242" y1="370" x2="476" y2="370"/>
+        </g>
+
+        <!-- flechas ascendentes derecha -->
+        <g stroke="currentColor" stroke-width="1.4" fill="none" marker-end="url(#a4)">
+          <line x1="580" y1="346" x2="580" y2="266"/>
+          <line x1="580" y1="154" x2="580" y2="134"/>
+          <line x1="580" y1="90" x2="580" y2="74"/>
+        </g>
+
+        <!-- pass -->
+        <line x1="580" y1="218" x2="580" y2="202" stroke="var(--ok)" stroke-width="2" fill="none" marker-end="url(#a4o)"/>
+        <text x="592" y="214" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="600" fill="var(--ok)">pass → habilita ciclo</text>
+
+        <!-- fail -->
+        <line x1="682" y1="242" x2="736" y2="290" stroke="var(--crit)" stroke-width="2" fill="none" marker-end="url(#a4c)"/>
+        <text x="700" y="278" font-family="JetBrains Mono, monospace" font-size="10.5" font-weight="600" fill="var(--crit)">fail</text>
+
+        <!-- retorno a idle -->
+        <path d="M480,50 L360,50 L360,50 L244,50" stroke="currentColor" stroke-width="1.4" fill="none" marker-end="url(#a4)" stroke-dasharray="5 4"/>
+        <text x="362" y="40" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="currentColor" opacity=".75">ciclo completo</text>
+
+        <!-- etiquetas -->
+        <text x="252" y="362" font-family="JetBrains Mono, monospace" font-size="10" fill="currentColor" opacity=".75">CYCLE_STOP vía MTConnect ↑</text>
+        <text x="825" y="344" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="11.5" fill="var(--crit)">notifica operador</text>
+      </svg>
+    </div>
+    <figcaption><b>FIG. 4</b>La visión no corrige nada ni escribe en el control: solo vota. Esa restricción es deliberada — mantiene la precisión de maquinado en el fixture y la máquina, donde debe estar.</figcaption>
+  </figure>
+
+  <h3>Los cuatro criterios de verificación</h3>
+  <div class="cards">
+    <div class="card"><span class="n">CRIT 1</span><h4>Presencia</h4><p>Segmentación sobre la región de interés del fixture. ¿Hay pieza o se cayó en la transferencia?</p></div>
+    <div class="card"><span class="n">CRIT 2</span><h4>Orientación</h4><p>Comparación contra la plantilla de calibración. Detecta pieza invertida cuando no es simétrica.</p></div>
+    <div class="card"><span class="n">CRIT 3</span><h4>Asentamiento</h4><p>Canal de profundidad como indicador de altura sobre los topes. Detecta viruta atrapada debajo.</p></div>
+    <div class="card"><span class="n">CRIT 4</span><h4>Zona libre</h4><p>Diferencia contra fondo de referencia. Herramienta olvidada, refrigerante acumulado, rebaba.</p></div>
+  </div>
+  <p>Calibración cámara–fixture una sola vez por instalación con tablero <strong>ChArUco</strong> atornillado a la mesa, más marcadores ArUco permanentes que delatan el drift si alguien mueve el soporte. Respuesta objetivo: menos de 3 segundos desde el disparo.</p>
+</section>
+
+<section>
+  <div class="sheet"><span class="code">SH-05</span><h2>Estructura del trabajo</h2></div>
+
+  <div class="wbs"><b>1. CELDA CIBERFÍSICA</b>
+│
+├── <b>1.1 GESTIÓN DEL PROYECTO</b>
+│   ├── 1.1.1 Plan de dirección y control de cambios
+│   ├── 1.1.2 Cronograma y avance
+│   ├── <i>1.1.3 Adquisiciones (PO, importación)</i>        ← ruta crítica
+│   ├── 1.1.4 Riesgos y contingencias
+│   ├── 1.1.5 Trazabilidad (OF, hojas viajeras)
+│   └── 1.1.6 Evidencias del curso
+│
+├── <b>1.2 AGV OMNIDIRECCIONAL</b>
+│   ├── 1.2.1 Estructura — chasis, montajes, plataforma
+│   ├── 1.2.2 Tracción — 4 mecanum, cinemática, driver
+│   ├── 1.2.3 Potencia — LiFePO4, distribución, paro
+│   ├── <i>1.2.4 Control NXP — encoders, PI/PD/PID, watchdog</i>
+│   ├── 1.2.5 Percepción — LiDAR, IMU, cámara AprilTag
+│   ├── 1.2.6 Navegación — SLAM, AMCL, Nav2, docking
+│   └── 1.2.7 Conectividad MQTT/TLS
+│
+├── <b>1.3 BRAZO / COBOT</b>
+│   ├── <i>1.3.1 Definición de plataforma</i>               ← decisión abierta
+│   ├── 1.3.2 Riel lineal 2.5 m
+│   ├── 1.3.3 Efector final
+│   ├── 1.3.4 Trayectorias enseñadas
+│   └── 1.3.5 Seguridad colaborativa ISO/TS 15066
+│
+├── <b>1.4 VISIÓN</b>
+│   ├── 1.4.1 Montaje sobre la mesa
+│   ├── 1.4.2 Calibración ChArUco
+│   ├── 1.4.3 Verificación de 4 criterios
+│   └── 1.4.4 Publicación MQTT
+│
+├── <b>1.5 INTEGRACIÓN DE CELDA</b>
+│   ├── 1.5.1 Supervisor y máquina de estados
+│   ├── 1.5.2 Cliente MTConnect
+│   ├── 1.5.3 Transferencia SMB
+│   ├── 1.5.4 Handshake M-códigos e I/O
+│   ├── 1.5.5 Fixture y pallet indexados
+│   └── 1.5.6 Dashboard OEE
+│
+└── <b>1.6 VALIDACIÓN Y DOCUMENTACIÓN</b>
+    ├── 1.6.1 QA eléctrico      1.6.4 Ciclo completo
+    ├── 1.6.2 QA mecánico       1.6.5 Manuales
+    └── 1.6.3 QA dinámico       1.6.6 FlexSim</div>
+
+  <h3>Tres decisiones que siguen abiertas</h3>
+  <p>Ninguna de las tres es técnica en el fondo: las tres son de alcance, y las tres se vuelven más caras cada semana que pasan sin resolverse.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Decisión</th><th>Fecha límite</th><th>Qué está en juego</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>¿Brazo propio o cobot comercial?</strong></td>
+        <td class="num"><span class="chip c">28 ago</span></td>
+        <td>La propuesta original asume un cobot comercial. Fabricar el brazo desde cero es un proyecto completo por sí solo — es la decisión más cara del semestre.</td>
+      </tr>
+      <tr>
+        <td><strong>El NXP no corre ROS 2</strong></td>
+        <td class="num"><span class="chip w">1 sep</span></td>
+        <td>El S32K312 sirve para los lazos de motor, pero SLAM y Nav2 necesitan Linux. Ya se agregó una SBC al presupuesto: ~$12,000 que no estaban contemplados.</td>
+      </tr>
+      <tr>
+        <td><strong>Mecanum cambia la cinemática</strong></td>
+        <td class="num"><span class="chip w">1 sep</span></td>
+        <td>Cuatro motores con encoder independientes y modelo omnidireccional, no diferencial. Afecta driver, firmware y presupuesto.</td>
+      </tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <div class="sheet"><span class="code">SH-06</span><h2>Riesgos y presupuesto</h2></div>
+
+  <div class="tbl"><table>
+    <thead><tr><th>ID</th><th>Riesgo</th><th>Exposición</th><th>Respuesta</th><th>Dueño</th></tr></thead>
+    <tbody>
+      <tr><td class="num">R1</td><td>LiDAR se retrasa 4+ semanas</td><td><span class="chip c">Muy alta</span></td><td>Comprar antes del 6 sep, preferir distribuidor nacional. Desarrollar Nav2 en Gazebo mientras llega</td><td>Compras</td></tr>
+      <tr><td class="num">R6</td><td>El equipo no cierra el BOM a tiempo</td><td><span class="chip c">Muy alta</span></td><td>Fecha límite dura 1 sep, revisión diaria en Notion</td><td>Rodrigo</td></tr>
+      <tr><td class="num">R7</td><td>Fabricar el brazo consume el semestre</td><td><span class="chip c">Muy alta</span></td><td>Decidir cobot comercial contra propio antes del 28 ago</td><td>Rodrigo</td></tr>
+      <tr><td class="num">R2</td><td>Riel lineal no llega o no cumple carrera</td><td><span class="chip w">Alta</span></td><td>Cotizar dos proveedores. Plan B: reducir carrera a 1.5 m y reubicar el handoff</td><td>Compras</td></tr>
+      <tr><td class="num">R4</td><td>Sin acceso al CNC Haas en noviembre</td><td><span class="chip w">Alta</span></td><td>Reservar la ventana ya. Plan B: agente MTConnect simulado</td><td>Rodrigo</td></tr>
+      <tr><td class="num">R3</td><td>Batería detenida en aduana</td><td><span class="chip w">Media</span></td><td>Distribuidor nacional. Plan B: banco de LiPo con BMS propio</td><td>Compras</td></tr>
+      <tr><td class="num">R5</td><td>El S32K312 no da para 4 lazos</td><td><span class="chip w">Media</span></td><td>Medir frecuencia de lazo en semana 8. Plan B: segundo MCU</td><td>Control</td></tr>
+      <tr><td class="num">R10</td><td>Falla de seguridad en pruebas con el brazo</td><td><span class="chip w">Media</span></td><td>Canal de seguridad separado y paro probado antes de cualquier prueba con personas</td><td>Todos</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="split">
+    <div class="box">
+      <h4>Presupuesto por subsistema</h4>
+      <div class="tbl" style="margin:0;border:none">
+        <table style="min-width:0">
+          <tbody>
+            <tr><td>AGV · 15 materiales</td><td class="num">$39,340</td></tr>
+            <tr><td>Brazo y riel · 2</td><td class="num">$30,400</td></tr>
+            <tr><td>Visión · 1</td><td class="num">$7,800</td></tr>
+            <tr><td>Celda · 2</td><td class="num">$6,500</td></tr>
+            <tr><td><strong>Materiales</strong></td><td class="num"><strong>$84,040</strong></td></tr>
+            <tr><td>Contingencia 15 %</td><td class="num">$12,600</td></tr>
+            <tr><td><strong>Total</strong></td><td class="num"><strong>$96,640</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="box">
+      <h4>Dónde está el desbordamiento</h4>
+      <p style="font-size:.93rem;color:var(--ink-2)">La meta de la propuesta era menos de $55,000 para el AGV. <strong>El AGV va en $39,340: dentro de meta.</strong></p>
+      <p style="font-size:.93rem;color:var(--ink-2)">Lo que desborda es el riel lineal ($28,000) y la visión ($7,800), que no son parte del AGV. Si hay que recortar, el riel es el candidato: bajar la carrera de 2.5 a 1.5 m y reubicar la estación de handoff.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sheet"><span class="code">SH-07</span><h2>Cómo trabajamos</h2></div>
+
+  <p>El equipo captura en Notion, Rodrigo valida y Claude genera los documentos formales. <strong>Nadie comparte una cuenta</strong> y ningún dato vive en dos lugares a la vez.</p>
+
+  <figure>
+    <div class="canvas">
+      <svg viewBox="0 0 900 330" role="img" aria-label="Ciclo de trabajo: el equipo captura en Notion, Rodrigo valida, Claude genera órdenes de compra y documentos, y el resultado vuelve a Teams y Canvas.">
+        <defs>
+          <marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+          </marker>
+        </defs>
+
+        <g font-family="Archivo, sans-serif" font-size="14" font-weight="600" fill="currentColor">
+          <rect x="30" y="120" width="160" height="66" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="110" y="148" text-anchor="middle">Equipo</text>
+          <text x="110" y="168" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="400" opacity=".75">4 integrantes</text>
+
+          <rect x="250" y="120" width="160" height="66" fill="var(--data-soft)" stroke="var(--data)" stroke-width="2"/>
+          <text x="330" y="148" text-anchor="middle">Notion</text>
+          <text x="330" y="168" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="400" opacity=".75">tareas · BOM · riesgos</text>
+
+          <rect x="470" y="120" width="160" height="66" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="550" y="148" text-anchor="middle">Rodrigo</text>
+          <text x="550" y="168" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="400" opacity=".75">director de proyecto</text>
+
+          <rect x="690" y="120" width="180" height="66" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+          <text x="780" y="148" text-anchor="middle">Claude</text>
+          <text x="780" y="168" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="400" opacity=".75">agente / PM</text>
+        </g>
+
+        <g stroke="currentColor" stroke-width="1.5" fill="none" marker-end="url(#a5)">
+          <line x1="192" y1="153" x2="246" y2="153"/>
+          <line x1="412" y1="153" x2="466" y2="153"/>
+          <line x1="632" y1="153" x2="686" y2="153"/>
+        </g>
+        <g font-family="JetBrains Mono, monospace" font-size="10" fill="currentColor" opacity=".8" text-anchor="middle">
+          <text x="219" y="144">captura</text>
+          <text x="439" y="144">valida</text>
+          <text x="659" y="144">pide</text>
+        </g>
+
+        <!-- salidas de claude -->
+        <g font-family="Source Sans 3, sans-serif" font-size="12" fill="currentColor">
+          <rect x="690" y="34" width="180" height="34" fill="var(--surface)" stroke="var(--rule)" stroke-width="1.2"/>
+          <text x="780" y="56" text-anchor="middle">PO · OF · hojas viajeras</text>
+          <rect x="690" y="238" width="180" height="34" fill="var(--surface)" stroke="var(--rule)" stroke-width="1.2"/>
+          <text x="780" y="260" text-anchor="middle">Guías · briefs · análisis</text>
+        </g>
+        <g stroke="var(--accent)" stroke-width="1.4" fill="none">
+          <line x1="780" y1="116" x2="780" y2="72" marker-end="url(#a5)"/>
+          <line x1="780" y1="190" x2="780" y2="234" marker-end="url(#a5)"/>
+        </g>
+
+        <!-- retorno -->
+        <path d="M690,51 L560,51 L560,116" stroke="currentColor" stroke-width="1.4" fill="none" stroke-dasharray="5 4" marker-end="url(#a5)"/>
+        <path d="M550,190 L550,296 L110,296 L110,190" stroke="currentColor" stroke-width="1.4" fill="none" stroke-dasharray="5 4" marker-end="url(#a5)"/>
+        <text x="330" y="290" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="currentColor" opacity=".8">publica en Teams y Canvas</text>
+      </svg>
+    </div>
+    <figcaption><b>FIG. 5</b>Claude no decide el alcance ni compromete dinero: genera el documento, Rodrigo autoriza. El equipo nunca toca la cuenta y aun así todo lo que captura llega a los entregables.</figcaption>
+  </figure>
+
+  <div class="split">
+    <div class="box yes">
+      <h4>Lo que hace Claude</h4>
+      <ul>
+        <li>Emite PO, órdenes de fabricación y hojas viajeras en el formato del profesor, numeradas y registradas</li>
+        <li>Calcula fechas de llegada por lead time y avisa qué está en riesgo</li>
+        <li>Brief automático de lunes a sábado a las 7:03</li>
+        <li>Responde dudas técnicas citando archivo y página de un índice de 773 páginas</li>
+        <li>Transcribe las libretas de GoodNotes y las conecta con el proyecto</li>
+        <li>Sincroniza Notion, archivos locales y Google Calendar</li>
+      </ul>
+    </div>
+    <div class="box no">
+      <h4>Lo que no hace</h4>
+      <ul>
+        <li><strong>No decide el alcance.</strong> Señala las divergencias; la decisión es del equipo</li>
+        <li><strong>No compra.</strong> Genera la orden; la autoriza Rodrigo</li>
+        <li><strong>No sustituye al director de proyecto.</strong> Rodrigo aprueba y responde</li>
+        <li><strong>No lo usa el equipo directamente.</strong> Una sola cuenta, sin compartir</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Dónde vive cada cosa</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Contenido</th><th>Herramienta</th><th>Por qué ahí</th></tr></thead>
+    <tbody>
+      <tr><td>Tareas, BOM, compras</td><td><strong>Notion</strong></td><td>Todo el equipo edita, sin necesitar cuentas de Claude</td></tr>
+      <tr><td>Conversación diaria</td><td><strong>Teams</strong></td><td>Ya lo usan; no vale la pena mover al equipo</td></tr>
+      <tr><td>CAD, STEP, archivos pesados</td><td><strong>Teams / SharePoint</strong></td><td>Notion no es para 40 MB de modelos</td></tr>
+      <tr><td>PO, OF, documentación técnica</td><td><strong>Sistema local</strong></td><td>Generado y versionado automáticamente</td></tr>
+      <tr><td>Entregas oficiales</td><td><strong>Canvas</strong></td><td>Es lo único que se califica</td></tr>
+      <tr><td>Código ROS 2 y firmware</td><td><strong>Git</strong></td><td>Lo exige el profesor en el área 3 de la Actividad 2</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Ritmo semanal</h3>
+  <div class="tbl"><table>
+    <thead><tr><th>Cuándo</th><th>Qué pasa</th><th>Quién</th></tr></thead>
+    <tbody>
+      <tr><td class="num">Lunes AM</td><td>Junta de avance, actualizar Notion</td><td>Equipo</td></tr>
+      <tr><td class="num">Lunes AM</td><td>Planeación de la semana y estado del reto</td><td>Rodrigo</td></tr>
+      <tr><td class="num">Diario 7:03</td><td>Brief automático con alertas de plazo</td><td>Claude</td></tr>
+      <tr><td class="num">Al cotizar</td><td>Actualizar proveedor, costo y lead time en el BOM</td><td>Quien cotiza</td></tr>
+      <tr><td class="num">Al aprobar</td><td>Emitir la orden de compra</td><td>Rodrigo</td></tr>
+      <tr><td class="num">Viernes</td><td>Revisión de riesgos y avance contra plan</td><td>Rodrigo</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<footer>
+  <span>RETO-MR3005C-601-2026 · Plan de dirección v1.0</span>
+  <span>Rev. 2026-08-25 · Próxima revisión 6 sep (hito H1)</span>
+</footer>
+
+</div>

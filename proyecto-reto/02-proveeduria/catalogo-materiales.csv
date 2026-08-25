@@ -1,0 +1,21 @@
+codigo_erp,categoria,tipo,numero_parte,descripcion,fabricante,uom,costo_unitario,stock,lead_time_semanas,proveedor,subsistema,estado
+INS-CAM-FRONT,INSTRUMENTACION,Camara,CAM-APRILTAG,Camara frontal para deteccion de AprilTag en el docking,POR DEFINIR,PZA,1200,0,3,POR DEFINIR,AGV,por cotizar
+INS-CAM-RGBD,INSTRUMENTACION,Camara,CAM-RGBD,Camara RGB-D para verificar asentamiento de pieza en fixture,Intel RealSense,PZA,7800,0,4,POR DEFINIR,Vision,por cotizar
+INS-IMU-9DOF,INSTRUMENTACION,IMU,IMU-9DOF,Unidad inercial de 9 grados de libertad con fusion,Bosch/InvenSense,PZA,850,0,3,POR DEFINIR,AGV,por cotizar
+INS-LID-2D-360,INSTRUMENTACION,LiDAR,LIDAR-2D-360,"LiDAR 2D 360 grados para SLAM, alcance 12 m",Slamtec RPLIDAR,PZA,4500,0,6,POR DEFINIR,AGV,RIESGO IMPORTACION
+INS-SEN-INDUCTIVO,INSTRUMENTACION,Sensor,SEN-IND-M12,Sensor inductivo M12 de presencia para cierre de conos,Omron,PZA,650,0,2,POR DEFINIR,AGV,por cotizar
+INT-COM-SBC-ROS2,INTERFACES,Computo,SBC-ROS2,"Computo supervisor Linux para ROS2 Humble, SLAM y Nav2 (clase Jetson Orin Nano)",NVIDIA,PZA,12000,0,5,POR DEFINIR,AGV,FALTABA EN EL BOM - el NXP no puede correr ROS2
+INT-DRV-MOT-4CH,INTERFACES,Driver,DRV-MOT-4CH,Driver de motor de 4 canales con PWM y lectura de encoder,POR DEFINIR,PZA,2200,0,3,POR DEFINIR,AGV,por cotizar
+INT-MCU-S32K312,INTERFACES,Microcontrolador,S32K312,MCU NXP S32K312 para el lazo de control PI/PD/PID de bajo nivel,NXP,PZA,1500,0,4,POR DEFINIR,AGV,tarjeta vista en M4
+INT-MOD-IO-ETH,INTERFACES,Modulo IO,IO-ETH-16,Modulo IO industrial Ethernet para handshake discreto con el Haas,Wago 750,PZA,6500,0,5,POR DEFINIR,Celda,por cotizar
+MEC-BAL-RC70,MECANICA,Balero,RC-70MM,Balero de rodillos cruzados 70 mm para junta rotativa del brazo,POR DEFINIR,PZA,2400,0,4,POR DEFINIR,Brazo,CAD ya en el repo
+MEC-CHA-ALU-PERFIL,MECANICA,Estructura,PERFIL-4040,Perfil estructural de aluminio 40x40 para chasis del AGV,Bosch Rexroth,MTR,420,0,2,POR DEFINIR,AGV,por cotizar
+MEC-MOT-CHP42GP775,MECANICA,Motorreductor,CHP-42GP-775,Motorreductor DC 775 con encoder de cuadratura y caja 42GP,CHP,PZA,950,0,2,POR DEFINIR,AGV,CAD ya en el repo
+MEC-RIE-LIN-2500,MECANICA,Riel,RIEL-LIN-2500,Riel lineal de 2.5 m como septimo eje externo del cobot,POR DEFINIR,PZA,28000,0,6,POR DEFINIR,Cobot,CRITICO
+MEC-RUE-MECANUM-100,MECANICA,Rueda,MECANUM-100,"Rueda mecanum 100 mm con rodillos, capacidad 20 kg",Nexus/Generico,PZA,1800,0,3,POR DEFINIR,AGV,por cotizar
+OTR-FIX-INDEX,OTRO,Fixture,FIX-INDEXADO,Fixture indexado con pines de referencia para la mesa del Haas,Fabricacion propia,PZA,0,0,0,INTERNO,Celda,por disenar
+OTR-PAL-INDEX,OTRO,Pallet,PALLET-5POS,Pallet indexado para 5 piezas de trabajo,Fabricacion propia,PZA,0,0,0,INTERNO,AGV,por disenar
+POT-BAT-LIFEPO4,POTENCIA,Bateria,LIFEPO4-24V-20AH,Bateria LiFePO4 24V 20Ah con BMS integrado,RELiON,PZA,9500,0,5,POR DEFINIR,AGV,RIESGO IMPORTACION
+POT-CAR-BAT,POTENCIA,Cargador,CARGADOR-24V,Cargador para bateria LiFePO4 de 24V,POR DEFINIR,PZA,2100,0,3,POR DEFINIR,AGV,por cotizar
+POT-CON-DCDC,POTENCIA,Convertidor,DCDC-24-5,Convertidor DC-DC de 24V a 5V para la logica,MeanWell,PZA,780,0,2,POR DEFINIR,AGV,por cotizar
+POT-PAR-EMERG,POTENCIA,Seguridad,PARO-EMERG,Boton de paro de emergencia con enclavamiento y contacto NC,Schneider,PZA,890,0,2,POR DEFINIR,AGV,SEGURIDAD OBLIGATORIA

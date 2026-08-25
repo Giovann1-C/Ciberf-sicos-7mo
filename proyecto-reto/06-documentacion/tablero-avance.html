@@ -1,0 +1,368 @@
+<title>Tablero del Reto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">
+
+<style id="css">
+:root{
+  --ground:#F0F3F2; --surface:#FFFFFF; --surface-2:#E5EAE9;
+  --ink:#0F1619; --ink-2:#4A585D; --ink-3:#7C8A8F; --rule:#C6D0CF;
+  --accent:#D8491A; --accent-soft:#F8E4DB;
+  --data:#136A80; --data-soft:#DCEBEF;
+  --ok:#2C7A4E; --ok-soft:#E1F0E7; --warn:#A8721A; --warn-soft:#F7ECD8; --crit:#AC2A21;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --ground:#0E1316; --surface:#161D21; --surface-2:#1E272C;
+  --ink:#E0E7E9; --ink-2:#9BABB1; --ink-3:#6D7E85; --rule:#2A363C;
+  --accent:#FF7038; --accent-soft:#3A1C10;
+  --data:#54BBD2; --data-soft:#0F2A32;
+  --ok:#57B67F; --ok-soft:#10281B; --warn:#DCA746; --warn-soft:#2E2410; --crit:#EA6459;
+}}
+:root[data-theme="dark"]{
+  --ground:#0E1316; --surface:#161D21; --surface-2:#1E272C;
+  --ink:#E0E7E9; --ink-2:#9BABB1; --ink-3:#6D7E85; --rule:#2A363C;
+  --accent:#FF7038; --accent-soft:#3A1C10;
+  --data:#54BBD2; --data-soft:#0F2A32;
+  --ok:#57B67F; --ok-soft:#10281B; --warn:#DCA746; --warn-soft:#2E2410; --crit:#EA6459;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);
+  font-family:"Source Sans 3","Segoe UI",system-ui,sans-serif;font-size:15px;line-height:1.5}
+.wrap{max-width:1500px;margin:0 auto;padding:0 22px 80px}
+
+.top{border-bottom:2px solid var(--ink);padding:34px 0 18px;margin-bottom:22px}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+h1{font-family:"Archivo",sans-serif;font-weight:700;font-size:clamp(1.9rem,4vw,2.9rem);
+  line-height:1;letter-spacing:-.02em;margin:0 0 16px}
+.meter{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.bar{flex:1;min-width:220px;height:12px;background:var(--surface-2);border-radius:6px;overflow:hidden;display:flex}
+.bar i{display:block;height:100%}
+.bar i.h{background:var(--ok)} .bar i.c{background:var(--warn)}
+.pct{font-family:"JetBrains Mono",monospace;font-size:1.5rem;font-weight:600;
+  font-variant-numeric:tabular-nums}
+.counts{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--ink-2);
+  display:flex;gap:14px;flex-wrap:wrap}
+.counts b{color:var(--ink)}
+
+.hitos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 26px}
+.hito{background:var(--surface);border:1px solid var(--rule);border-top:3px solid var(--ink-3);
+  padding:11px 13px}
+.hito.on{border-top-color:var(--accent)}
+.hito.done{border-top-color:var(--ok);opacity:.62}
+.hito .k{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.1em;
+  color:var(--ink-3);display:block;margin-bottom:3px}
+.hito .n{font-weight:600;font-size:.9rem;display:block;margin-bottom:2px}
+.hito.done .n{text-decoration:line-through}
+.hito .f{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-2)}
+
+.board{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px;align-items:start}
+.col{background:var(--surface);border:1px solid var(--rule);display:flex;flex-direction:column}
+.col > header{padding:14px 16px;border-bottom:1px solid var(--rule);display:flex;
+  align-items:flex-start;gap:10px}
+.col .wbs{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;
+  color:var(--accent);flex:none;padding-top:2px}
+.col h2{font-family:"Archivo",sans-serif;font-size:1.02rem;font-weight:600;margin:0;flex:1}
+.col .mini{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-2);
+  flex:none;font-variant-numeric:tabular-nums}
+.col ul{list-style:none;margin:0;padding:8px}
+
+.t{display:flex;align-items:flex-start;gap:9px;padding:8px 9px;border-radius:3px;
+  cursor:pointer;user-select:none;border:1px solid transparent}
+.t:hover{background:var(--surface-2)}
+.t:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.mark{flex:none;width:17px;height:17px;border:2px solid var(--ink-3);border-radius:3px;
+  margin-top:2px;display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff}
+.t.e1 .mark{border-color:var(--warn);background:var(--warn)}
+.t.e2 .mark{border-color:var(--ok);background:var(--ok)}
+.t .lbl{flex:1;font-size:.9rem;line-height:1.35}
+.t.e1{background:var(--warn-soft)}
+.t.e2{background:var(--ok-soft)}
+.t.e2 .lbl{text-decoration:line-through;color:var(--ink-2)}
+.t.crit .lbl::after{content:" ●";color:var(--crit);font-size:.8em}
+.who{flex:none;font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.04em;
+  padding:2px 6px;border-radius:2px;background:var(--surface-2);color:var(--ink-2);
+  border:1px solid var(--rule);cursor:pointer;margin-top:1px;white-space:nowrap}
+.who:hover{border-color:var(--accent);color:var(--accent)}
+.who.set{background:var(--data-soft);color:var(--data);border-color:var(--data)}
+
+.legend{margin:28px 0 0;padding:16px 18px;background:var(--surface);border:1px solid var(--rule);
+  display:flex;gap:24px;flex-wrap:wrap;font-size:.87rem;color:var(--ink-2);align-items:center}
+.legend b{color:var(--ink)}
+.sw{display:inline-block;width:13px;height:13px;border-radius:3px;vertical-align:-2px;margin-right:5px}
+
+.saving{position:fixed;right:18px;bottom:18px;background:var(--ink);color:var(--ground);
+  font-family:"JetBrains Mono",monospace;font-size:11.5px;padding:9px 15px;border-radius:4px;
+  opacity:0;transition:opacity .2s;pointer-events:none;z-index:50}
+.saving.on{opacity:1}
+.saving.err{background:var(--crit);color:#fff}
+.ro{background:var(--warn-soft);border:1px solid var(--warn);padding:11px 15px;
+  margin:0 0 20px;font-size:.9rem;color:var(--ink)}
+footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--rule);
+  font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-3);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+</style>
+
+<div class="wrap" id="root"></div>
+<div class="saving" id="toast"></div>
+
+<script id="estado" type="application/json">
+{
+  "actualizado": "2026-08-25",
+  "equipo": ["—", "Rodrigo", "Giovanni", "Osmar", "Int. 4"],
+  "hitos": [
+    {"k":"H1","n":"PO críticas emitidas","f":"6 sep","e":0},
+    {"k":"H2","n":"Diseño congelado + FlexSim","f":"27 sep","e":0},
+    {"k":"H3","n":"AGV rodando con control","f":"25 oct","e":0},
+    {"k":"H4","n":"Navegación y docking","f":"8 nov","e":0},
+    {"k":"H5","n":"Ciclo completo con el Haas","f":"22 nov","e":0},
+    {"k":"H6","n":"Reporte integrador","f":"6 dic","e":0}
+  ],
+  "cols": [
+    {"wbs":"1.1","t":"Gestión del proyecto","ts":[
+      {"n":"Plan de dirección y control de cambios","e":2,"r":1},
+      {"n":"Cerrar BOM preliminar","e":1,"r":0,"c":1},
+      {"n":"WBS completo y matriz RACI","e":0,"r":0,"c":1},
+      {"n":"Cotizar riel lineal con 2 proveedores","e":0,"r":0,"c":1},
+      {"n":"Cotizar LiDAR (buscar opción nacional)","e":0,"r":0,"c":1},
+      {"n":"EMITIR las 5 PO críticas","e":0,"r":0,"c":1},
+      {"n":"Agendar ventana de acceso al CNC Haas","e":0,"r":0,"c":1},
+      {"n":"Evidencia 1 — Anteproyecto (6 %)","e":0,"r":1,"c":1},
+      {"n":"Evidencia 2 — Demostrativa (10 %)","e":0,"r":1},
+      {"n":"Evidencia 3 — Argumentativa (10 %)","e":0,"r":1},
+      {"n":"Evidencia 4 — Reporte integrador (10 %)","e":0,"r":1}
+    ]},
+    {"wbs":"1.2","t":"AGV omnidireccional","ts":[
+      {"n":"Chasis de perfil de aluminio 40×40","e":0,"r":0},
+      {"n":"Montajes de motor y plataforma de carga","e":0,"r":0},
+      {"n":"Montar 4 ruedas mecanum + motorreductores","e":0,"r":0},
+      {"n":"Modelo cinemático omnidireccional","e":0,"r":0},
+      {"n":"Driver de 4 canales con lectura de encoder","e":0,"r":0},
+      {"n":"Batería LiFePO4 + distribución 24 V / 5 V","e":0,"r":0},
+      {"n":"Circuito de paro de emergencia (cableado)","e":0,"r":0,"c":1},
+      {"n":"Firmware NXP: lectura de encoders","e":0,"r":0},
+      {"n":"Lazos PI / PD / PID por rueda","e":0,"r":0,"c":1},
+      {"n":"Watchdog y modo seguro","e":0,"r":0},
+      {"n":"Validar frecuencia de lazo ≥ 200 Hz","e":0,"r":0,"c":1},
+      {"n":"Integrar LiDAR, IMU y cámara frontal","e":0,"r":0},
+      {"n":"SLAM con slam_toolbox","e":0,"r":0},
+      {"n":"Localización AMCL sobre mapa guardado","e":0,"r":0},
+      {"n":"Planeación con Nav2 (global y local)","e":0,"r":0},
+      {"n":"Acción de docking por AprilTag","e":0,"r":0},
+      {"n":"Publicación de estado por MQTT/TLS","e":0,"r":0}
+    ]},
+    {"wbs":"1.3","t":"Brazo / cobot y riel","ts":[
+      {"n":"DECIDIR: brazo propio o cobot comercial","e":0,"r":1,"c":1},
+      {"n":"Diseño y fabricación del riel de 2.5 m","e":0,"r":0},
+      {"n":"Efector final (gripper)","e":0,"r":0},
+      {"n":"Trayectorias enseñadas en el pendant","e":0,"r":0},
+      {"n":"Seguridad colaborativa ISO/TS 15066","e":0,"r":0,"c":1}
+    ]},
+    {"wbs":"1.4","t":"Visión industrial","ts":[
+      {"n":"Montaje de cámara RGB-D sobre la mesa","e":0,"r":0},
+      {"n":"Calibración cámara–fixture con ChArUco","e":0,"r":0},
+      {"n":"Criterio 1: presencia de la pieza","e":0,"r":0},
+      {"n":"Criterio 2: orientación contra plantilla","e":0,"r":0},
+      {"n":"Criterio 3: asentamiento sobre topes","e":0,"r":0},
+      {"n":"Criterio 4: ausencia de objetos extraños","e":0,"r":0},
+      {"n":"Publicar veredicto pass/fail por MQTT","e":0,"r":0}
+    ]},
+    {"wbs":"1.5","t":"Integración de celda","ts":[
+      {"n":"Supervisor y máquina de estados","e":0,"r":0},
+      {"n":"Cliente MTConnect (Haas :8082, 250 ms)","e":0,"r":0},
+      {"n":"Transferencia de programas por SMB + hash","e":0,"r":0},
+      {"n":"Handshake por M-códigos e I/O discreta","e":0,"r":0,"c":1},
+      {"n":"Fixture indexado para la mesa del Haas","e":0,"r":0},
+      {"n":"Pallet indexado de 5 posiciones","e":0,"r":0},
+      {"n":"Dashboard de OEE y trazabilidad","e":0,"r":0}
+    ]},
+    {"wbs":"1.6","t":"Validación y documentación","ts":[
+      {"n":"QA eléctrico: continuidad y aislamiento","e":0,"r":0},
+      {"n":"QA mecánico: torque 45 Nm verificado","e":0,"r":0},
+      {"n":"QA dinámico: freno < 0.5 s a 2 m","e":0,"r":0,"c":1},
+      {"n":"5 ciclos completos sin intervención","e":0,"r":0,"c":1},
+      {"n":"Manuales de ingeniería de aplicaciones","e":0,"r":0},
+      {"n":"Simulación de estaciones en FlexSim","e":0,"r":0},
+      {"n":"Hojas viajeras firmadas por estación","e":0,"r":0}
+    ]}
+  ]
+}
+</script>
+
+<script id="app">
+(function () {
+  "use strict";
+  var E = JSON.parse(document.getElementById("estado").textContent);
+  var root = document.getElementById("root");
+  var toast = document.getElementById("toast");
+  var api = null, soloLectura = false, pendiente = null;
+
+  var esc = function (s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  };
+
+  function cuenta() {
+    var h = 0, c = 0, n = 0;
+    E.cols.forEach(function (col) {
+      col.ts.forEach(function (t) { n++; if (t.e === 2) h++; else if (t.e === 1) c++; });
+    });
+    return { hechas: h, curso: c, total: n };
+  }
+
+  function render() {
+    var k = cuenta();
+    var pH = k.total ? Math.round(k.hechas / k.total * 100) : 0;
+    var pC = k.total ? Math.round(k.curso / k.total * 100) : 0;
+
+    var html = '<header class="top">' +
+      '<p class="eyebrow">Reto MR3005C.601 · Celda ciberfísica · avance del equipo</p>' +
+      '<h1>Tablero del Reto</h1>' +
+      '<div class="meter">' +
+        '<span class="pct">' + pH + '%</span>' +
+        '<span class="bar"><i class="h" style="width:' + pH + '%"></i>' +
+        '<i class="c" style="width:' + pC + '%"></i></span>' +
+        '<span class="counts"><span><b>' + k.hechas + '</b> hechas</span>' +
+        '<span><b>' + k.curso + '</b> en curso</span>' +
+        '<span><b>' + (k.total - k.hechas - k.curso) + '</b> por hacer</span>' +
+        '<span>de <b>' + k.total + '</b></span></span>' +
+      '</div></header>';
+
+    if (soloLectura) {
+      html += '<p class="ro">Estás viendo el tablero en <b>solo lectura</b>. ' +
+        'Puedes marcar tareas para verlas, pero los cambios no se guardan para el equipo. ' +
+        'Pídele a Rodrigo acceso de edición.</p>';
+    }
+
+    html += '<div class="hitos">';
+    E.hitos.forEach(function (h, i) {
+      html += '<div class="hito ' + (h.e ? "done" : (i === 0 ? "on" : "")) + '" data-h="' + i + '">' +
+        '<span class="k">' + esc(h.k) + '</span>' +
+        '<span class="n">' + esc(h.n) + '</span>' +
+        '<span class="f">' + esc(h.f) + '</span></div>';
+    });
+    html += '</div>';
+
+    html += '<div class="board">';
+    E.cols.forEach(function (col, ci) {
+      var hh = col.ts.filter(function (t) { return t.e === 2; }).length;
+      html += '<section class="col"><header>' +
+        '<span class="wbs">' + esc(col.wbs) + '</span>' +
+        '<h2>' + esc(col.t) + '</h2>' +
+        '<span class="mini">' + hh + '/' + col.ts.length + '</span></header><ul>';
+      col.ts.forEach(function (t, ti) {
+        var m = t.e === 2 ? "✓" : (t.e === 1 ? "•" : "");
+        html += '<li class="t e' + t.e + (t.c ? " crit" : "") + '" data-c="' + ci +
+          '" data-t="' + ti + '" tabindex="0" role="button" aria-pressed="' + (t.e === 2) + '">' +
+          '<span class="mark">' + m + '</span>' +
+          '<span class="lbl">' + esc(t.n) + '</span>' +
+          '<span class="who' + (t.r ? " set" : "") + '" data-w="1">' +
+          esc(E.equipo[t.r] || "—") + '</span></li>';
+      });
+      html += '</ul></section>';
+    });
+    html += '</div>';
+
+    html += '<div class="legend">' +
+      '<span><span class="sw" style="background:var(--surface-2);border:1px solid var(--rule)"></span>Por hacer</span>' +
+      '<span><span class="sw" style="background:var(--warn)"></span>En curso</span>' +
+      '<span><span class="sw" style="background:var(--ok)"></span>Hecha</span>' +
+      '<span><b style="color:var(--crit)">●</b> Crítica para el calendario</span>' +
+      '<span><b>Clic</b> en la tarea para avanzar su estado · <b>clic</b> en el nombre para cambiar responsable</span>' +
+      '</div>';
+
+    html += '<footer><span>Actualizado ' + esc(E.actualizado) + '</span>' +
+      '<span>Los cambios se guardan para todo el equipo</span></footer>';
+
+    root.innerHTML = html;
+  }
+
+  function plantilla() {
+    var css = document.getElementById("css").textContent;
+    var js = document.getElementById("app").textContent;
+    return '<!doctype html>\n<html lang="es">\n<head>\n<meta charset="utf-8">\n' +
+      '<meta name="viewport" content="width=device-width, initial-scale=1">\n' +
+      '<title>Tablero del Reto</title>\n' +
+      '<link rel="preconnect" href="https://fonts.googleapis.com">\n' +
+      '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n' +
+      '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap">\n' +
+      '<style id="css">' + css + '</style>\n</head>\n<body>\n' +
+      '<div class="wrap" id="root"></div>\n<div class="saving" id="toast"></div>\n' +
+      '<script id="estado" type="application/json">\n' + JSON.stringify(E, null, 1) + '\n<\/script>\n' +
+      '<script id="app">' + js + '<\/script>\n</body>\n</html>';
+  }
+
+  function aviso(txt, err) {
+    toast.textContent = txt;
+    toast.className = "saving on" + (err ? " err" : "");
+    clearTimeout(aviso._t);
+    aviso._t = setTimeout(function () { toast.className = "saving"; }, err ? 5000 : 1600);
+  }
+
+  function guardar() {
+    clearTimeout(pendiente);
+    pendiente = setTimeout(function () {
+      if (!api || soloLectura) return;
+      var fecha = new Date().toISOString().slice(0, 10);
+      E.actualizado = fecha;
+      aviso("Guardando…");
+      api.publish(plantilla()).catch(function (e) {
+        var c = e && e.code;
+        if (c === "conflict") { aviso("Alguien guardó primero — recargando"); return; }
+        if (c === "not_writer" || c === "not_granted" || c === "not_declared" ||
+            c === "capability_disabled" || c === "consent_required") {
+          soloLectura = true; render();
+          aviso("Vista de solo lectura", true);
+          return;
+        }
+        if (c === "rate_limited") { aviso("Demasiados cambios seguidos, espera un momento", true); return; }
+        aviso("No se pudo guardar: " + (c || "error"), true);
+      });
+    }, 1200);
+  }
+
+  root.addEventListener("click", function (ev) {
+    var w = ev.target.closest(".who");
+    var li = ev.target.closest(".t");
+    var h = ev.target.closest(".hito");
+    if (w && li) {
+      ev.stopPropagation();
+      var t1 = E.cols[+li.dataset.c].ts[+li.dataset.t];
+      t1.r = (t1.r + 1) % E.equipo.length;
+      render(); guardar(); return;
+    }
+    if (li) {
+      var t2 = E.cols[+li.dataset.c].ts[+li.dataset.t];
+      t2.e = (t2.e + 1) % 3;
+      render(); guardar(); return;
+    }
+    if (h) {
+      var hh = E.hitos[+h.dataset.h];
+      hh.e = hh.e ? 0 : 1;
+      render(); guardar();
+    }
+  });
+
+  root.addEventListener("keydown", function (ev) {
+    if (ev.key !== "Enter" && ev.key !== " ") return;
+    var li = ev.target.closest(".t");
+    if (!li) return;
+    ev.preventDefault();
+    var t = E.cols[+li.dataset.c].ts[+li.dataset.t];
+    t.e = (t.e + 1) % 3;
+    render(); guardar();
+  });
+
+  render();
+
+  if (window.claude && window.claude.use) {
+    window.claude.use("artifact").then(function (a) {
+      api = a;
+      if (!a) { soloLectura = true; render(); }
+    }).catch(function () { soloLectura = true; render(); });
+  } else {
+    soloLectura = true; render();
+  }
+})();
+</script>

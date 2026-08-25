@@ -1,0 +1,57 @@
+# ---------------------------------------------------------------
+# Archivos pesados: NO van en git. Viven en Teams / SharePoint.
+# GitHub avisa a los 50 MB y rechaza a los 100 MB.
+# ---------------------------------------------------------------
+*.zip
+*.rar
+*.7z
+*.iso
+*.ova
+*.exe
+*.msi
+
+# CAD y modelos 3D
+*.SLDPRT
+*.SLDASM
+*.SLDDRW
+*.STEP
+*.STP
+*.IGS
+*.IGES
+*.f3d
+*.f3z
+*.STL
+*.stl
+*.x_t
+*.prt
+*.CATPart
+
+# Video y capturas pesadas
+*.mp4
+*.mov
+*.avi
+
+# ---------------------------------------------------------------
+# Material de clase con derechos de los profesores: no publicarlo
+# ---------------------------------------------------------------
+materiales/
+apuntes/
+*_confidencial*
+
+# ---------------------------------------------------------------
+# Temporales y basura de sistema
+# ---------------------------------------------------------------
+~$*
+.DS_Store
+Thumbs.db
+desktop.ini
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Credenciales: NUNCA subir
+canvas-token.txt
+*.env
+.env*
+credenciales*
