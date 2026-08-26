@@ -102,13 +102,3 @@ Requiere `pip install openpyxl`.
 | Conversación y archivos pesados de CAD | **Teams / SharePoint** |
 | Entregas oficiales y evidencias | **Canvas** |
 
-## Equipo
-
-| Integrante | Responsabilidad |
-|---|---|
-| Rodrigo Herrera | Dirección de proyecto · control NXP · integración de celda |
-| _(pendiente)_ | Estructura y tracción del AGV |
-| _(pendiente)_ | Navegación ROS 2 |
-| _(pendiente)_ | Brazo, riel y visión |
-
-Profesores del Reto: Oscar Carbajal · Abdiel
