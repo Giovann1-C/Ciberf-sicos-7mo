@@ -45,6 +45,13 @@ h1{font-family:"Archivo",sans-serif;font-weight:700;font-size:clamp(1.9rem,4vw,2
   display:flex;gap:14px;flex-wrap:wrap}
 .counts b{color:var(--ink)}
 
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 22px}
+.nav a{font-family:"JetBrains Mono",monospace;font-size:11.5px;letter-spacing:.03em;
+  text-decoration:none;color:var(--ink-2);background:var(--surface);
+  border:1px solid var(--rule);padding:7px 13px;border-radius:3px;transition:.15s}
+.nav a:hover{border-color:var(--accent);color:var(--accent)}
+.nav a:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+
 .hitos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 26px}
 .hito{background:var(--surface);border:1px solid var(--rule);border-top:3px solid var(--ink-3);
   padding:11px 13px}
@@ -108,7 +115,7 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--rule);
 
 <script id="estado" type="application/json">
 {
- "actualizado": "2026-08-25",
+ "actualizado": "2026-08-26",
  "equipo": [
   "—",
   "Rodrigo",
@@ -580,6 +587,13 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--rule);
         '<span>de <b>' + k.total + '</b></span></span>' +
       '</div></header>';
 
+    html += '<nav class="nav">' +
+      '<a href="https://github.com/Giovann1-C/Ciberf-sicos-7mo" target="_blank" rel="noopener">Repositorio</a>' +
+      '<a href="https://claude.ai/code/artifact/a16da71d-e2ac-409e-bad1-41566dfaaa90" target="_blank" rel="noopener">Diagramas</a>' +
+      '<a href="https://app.notion.com/p/3c763d9e84498109aed6f0ff6afd4849" target="_blank" rel="noopener">Notion</a>' +
+      '<a href="https://experiencia21.tec.mx/courses/707419" target="_blank" rel="noopener">Canvas</a>' +
+      '</nav>';
+
     if (soloLectura) {
       html += '<p class="ro">Estás viendo el tablero en <b>solo lectura</b>. ' +
         'Puedes marcar tareas para verlas, pero los cambios no se guardan para el equipo. ' +
@@ -622,6 +636,11 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--rule);
       '<span><b style="color:var(--crit)">●</b> Crítica para el calendario</span>' +
       '<span><b>Clic</b> en la tarea para avanzar su estado · <b>clic</b> en el nombre para cambiar responsable</span>' +
       '</div>';
+
+    html += '<div class="legend" style="margin-top:12px">' +
+      '<span>Las tareas también se marcan solas: sube el archivo a GitHub con una palabra de cierre en el nombre ' +
+      '(<b>final</b>, <b>aprobado</b>, <b>firmado</b>, <b>validado</b>) y el tablero lo detecta. ' +
+      'Sin esa palabra queda en <b>en curso</b>.</span></div>';
 
     html += '<footer><span>Actualizado ' + esc(E.actualizado) + '</span>' +
       '<span>Los cambios se guardan para todo el equipo</span></footer>';

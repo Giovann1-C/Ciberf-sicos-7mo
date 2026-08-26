@@ -5,7 +5,7 @@
 **Curso:** Sistemas ciber-físicos · MR3005C.601 · Tec de Monterrey Guadalajara
 **Director de proyecto:** Rodrigo Herrera Baños (A01738608)
 **Periodo:** 10 ago 2026 – 6 dic 2026 (16 semanas)
-**Versión:** 1.0 · 2026-08-25
+**Versión:** 1.1 · 2026-08-25
 
 ---
 
@@ -309,24 +309,51 @@ controladores PI/PD/PID · Visión con OpenCV · Protocolos industriales
 
 | Qué | Quién | Canal | Frecuencia |
 |---|---|---|---|
-| Estado de tareas | Todo el equipo | Notion | Continuo |
+| Entregables terminados | Quien los produce | **GitHub** | Al terminar cada cosa |
+| Estado de tareas | Todo el equipo | Notion + tablero | Continuo |
+| Avance visual del proyecto | Todo el equipo | Tablero publicado | Continuo |
 | Coordinación diaria | Todo el equipo | Teams | Diario |
 | Junta de avance | Todo el equipo | Teams (grabada) | Semanal, lunes |
 | Reporte de avance | Rodrigo → docentes | Canvas | Por evidencia |
 | Alertas de riesgo | Quien detecta → Rodrigo | Teams, inmediato | Al ocurrir |
-| Documentos generados | Claude → Rodrigo → Teams | Archivos del canal | Al generar |
+| Documentos generados | Claude → GitHub | Commit + push | Al generar |
 | Estado del proyecto | Claude → Rodrigo | Brief diario 7:03 am | Diario |
 
 ## 7.2 Repositorios de información
 
 | Contenido | Dónde vive | Por qué ahí |
 |---|---|---|
-| Tareas, BOM, compras | **Notion** | Todo el equipo edita, sin cuentas de Claude |
+| Documentación, códigos, planos PDF, cotizaciones | **GitHub** `Giovann1-C/Ciberf-sicos-7mo` | Versionado, público, exigido por el profe (Área 3 de la Actividad 2) |
+| Avance de las 54 tareas y 6 hitos | **Tablero publicado** | Visual, editable por todos sin cuentas |
+| Tareas del día a día, BOM, compras | **Notion** | Todo el equipo edita, sin cuentas de Claude |
 | Conversación | **Teams** | Ya lo usan |
-| Archivos pesados (CAD, STEP) | **Teams / SharePoint** | Notion no es para 40 MB |
-| Documentación técnica, PO, OF | **Sistema local de Rodrigo** | Generado y versionado por Claude |
-| Entregas oficiales | **Canvas** | Es lo que se califica |
-| Código | **Repositorio Git** | Lo exige el profe (Área 3 de la Actividad 2) |
+| Archivos pesados (CAD, ZIP, STEP, video) | **Teams / SharePoint** | GitHub se degrada con binarios grandes |
+| Entregas oficiales y evidencias | **Canvas** | Es lo único que se califica |
+| Bitácora de evidencias | `05-calidad/bitacora-evidencias.md` | Trazabilidad: qué archivo movió qué tarea |
+
+### Enlaces
+
+| Herramienta | URL |
+|---|---|
+| Repositorio | https://github.com/Giovann1-C/Ciberf-sicos-7mo |
+| Tablero de avance | https://claude.ai/code/artifact/60424a47-dd4a-4886-b8c6-f7c64939065b |
+| Diagramas de arquitectura | https://claude.ai/code/artifact/a16da71d-e2ac-409e-bad1-41566dfaaa90 |
+| Notion — espacio del Reto | https://app.notion.com/p/3c763d9e84498109aed6f0ff6afd4849 |
+| Canvas del curso | https://experiencia21.tec.mx/courses/707419 |
+
+## 7.3 Convención de nombres de archivo
+
+El nombre del archivo **es** la señal de estado. El sistema lo lee y actualiza el
+tablero sin que nadie tenga que reportar nada.
+
+| Archivo | Efecto en el tablero |
+|---|---|
+| `chasis-agv.pdf` | Tarea a **en curso** — hubo trabajo, no consta cierre |
+| `chasis-agv-final.pdf` | Tarea a **hecha** y tachada |
+
+Palabras de cierre reconocidas: `final`, `aprobado`, `firmado`, `liberado`,
+`validado`, `entregado`, `terminado`. Nombres en kebab-case, sin acentos ni
+espacios.
 
 ---
 
@@ -542,25 +569,51 @@ para detectar drift por vibración.
 
 | Función | Cómo |
 |---|---|
-| **Memoria del proyecto** | Todo dato duradero se escribe en archivos; no se pierde entre sesiones |
+| **Detección de avance** | Lee el repositorio, cruza los archivos contra `sistema/evidencias.json` y actualiza el tablero. Deja bitácora de qué archivo movió qué tarea |
+| **Memoria del proyecto** | Todo dato duradero se escribe en archivos versionados; no se pierde entre sesiones ni entre computadoras |
 | **Emisión de documentos** | PO, OF y hojas viajeras en el formato del profe, numeradas y registradas |
 | **Vigilancia de riesgos** | Calcula fechas de llegada por lead time y avisa qué está en riesgo |
 | **Brief diario** | Tarea programada lun–sáb 7:03 am: clases, entregas, alertas |
-| **Consulta técnica** | Índice de 65 documentos, 773 páginas: responde citando archivo y página |
+| **Consulta técnica** | Índice de 81 documentos —incluidos los que sube el equipo— y responde citando archivo y página |
 | **Digitalización de notas** | Transcribe las libretas de GoodNotes y las conecta con el proyecto |
-| **Sincronización** | Notion (equipo) ↔ archivos locales ↔ Google Calendar |
+| **Sincronización** | GitHub ↔ archivos locales ↔ Notion ↔ Google Calendar |
 
 ## 12.2 Qué NO hace Claude
 - **No decide el alcance.** Señala las divergencias; la decisión es del equipo.
 - **No compra ni compromete dinero.** Genera la PO; autoriza Rodrigo.
+- **No inventa avance.** Sin archivo en el repositorio, la tarea no se mueve.
+- **No promueve a "hecha" por su cuenta** lo que solo demuestra que hubo trabajo:
+  eso exige la palabra de cierre en el nombre o la confirmación de una persona.
+- **No sube nada al repositorio solo.** El push lo dispara Rodrigo.
 - **No sustituye al director de proyecto.** Rodrigo aprueba y responde.
-- **No lo usa el equipo directamente.** Solo Rodrigo; nadie comparte la cuenta.
+- **No lo usa el equipo directamente.** Una sola cuenta, sin compartir.
 
-## 12.3 Ciclo de trabajo semanal
+## 12.3 Del archivo al avance
+
+```
+Alguien termina algo
+  → lo sube a GitHub con el nombre correcto
+    → `python sistema/avance.py` cruza archivos contra el mapa de evidencias
+      → propone qué tareas mover (hecha / en curso)
+        → se aplica y queda bitácora en 05-calidad/
+          → se republica el tablero
+            → todo el equipo lo ve
+```
+
+Dos criterios protegen la honestidad del tablero:
+
+1. **Coincidencia por límite de palabra.** `slam` no casa con `slamtec`. Sin esto,
+   una orden de compra al proveedor Slamtec marcaba SLAM como resuelto.
+2. **Un archivo prueba trabajo, no cierre.** Solo sube a "hecha" si el nombre lo
+   declara terminado. Lo demás queda en "en curso" para revisión humana.
+
+## 12.4 Ciclo de trabajo semanal
 
 | Momento | Acción | Quién |
 |---|---|---|
+| Al terminar algo | Subir el archivo a GitHub con el nombre correcto | Quien lo hizo |
 | Lunes AM | Junta de avance, actualizar Notion | Equipo |
+| Lunes AM | `revisa el avance` → tablero actualizado | Rodrigo + Claude |
 | Lunes AM | `planea mi semana` + `estado del reto` | Rodrigo + Claude |
 | Diario 7:03 | Brief automático con alertas | Claude |
 | Al cotizar | Actualizar BOM en Notion | Quien cotiza |
@@ -575,5 +628,6 @@ para detectar drift por vibración.
 | Versión | Fecha | Cambios | Autor |
 |---|---|---|---|
 | 1.0 | 2026-08-25 | Emisión inicial | Rodrigo + Claude |
+| 1.1 | 2026-08-25 | Se incorpora el repositorio de GitHub como fuente de verdad, el tablero de avance, la convención de nombres de archivo y la detección automática de avance por evidencias (§7 y §12) | Rodrigo + Claude |
 
 **Próxima revisión obligatoria:** 2026-09-06 (hito H1, emisión de PO críticas).

@@ -29,6 +29,39 @@ algoritmo de visión sobre fotos, simulación en FlexSim.
 
 ---
 
+## Herramientas del equipo
+
+| Herramienta | Para qué | Link |
+|---|---|---|
+| **Tablero de avance** | Marcar tareas y ver cómo vamos. 54 tareas, 6 hitos | [abrir](https://claude.ai/code/artifact/60424a47-dd4a-4886-b8c6-f7c64939065b) |
+| **Diagramas** | Entender la celda: arquitectura, ciclo, cronograma | [abrir](https://claude.ai/code/artifact/a16da71d-e2ac-409e-bad1-41566dfaaa90) |
+| **Notion** | Tareas del día a día, BOM y compras | [abrir](https://app.notion.com/p/3c763d9e84498109aed6f0ff6afd4849) |
+| **Canvas** | Entregas oficiales. Lo único que se califica | [abrir](https://experiencia21.tec.mx/courses/707419) |
+
+---
+
+## 📌 Cómo nombrar los archivos
+
+**El nombre del archivo es la señal de estado.** El sistema lo lee y actualiza el
+tablero solo: nadie tiene que reportar avance a mano.
+
+| Subes… | El tablero marca… |
+|---|---|
+| `chasis-agv.pdf` | **En curso** — hubo trabajo, no consta que esté cerrado |
+| `chasis-agv-final.pdf` | **Hecha** y tachada |
+
+Palabras que cierran una tarea:
+`final` · `aprobado` · `firmado` · `liberado` · `validado` · `entregado` · `terminado`
+
+Nombres en kebab-case, sin acentos ni espacios: `qa-dinamico-validado.pdf`,
+no `QA Dinámico (final) v3 FINAL.pdf`.
+
+> Si subiste algo que obviamente demuestra una tarea y el tablero no se movió,
+> el problema es el patrón, no tu archivo: avísale a Rodrigo y se agrega a
+> `herramientas/evidencias.json`.
+
+---
+
 ## Qué hay aquí
 
 ```
@@ -81,6 +114,29 @@ python herramientas/erp.py of --parte "AGV Mecanum" --cantidad 1 --entrega 2026-
 
 Requiere `pip install openpyxl`.
 
+## Cómo se convierte lo que suben en avance
+
+```bash
+# Baja el repo, cruza los archivos contra el mapa de evidencias y reporta
+python herramientas/avance.py
+
+# Aplica los cambios al tablero y deja bitácora
+python herramientas/avance.py --aplicar --sin-pull
+```
+
+El mapa vive en `herramientas/evidencias.json`: dice qué fragmento de nombre de
+archivo demuestra qué tarea. Es texto plano, se edita sin tocar código.
+
+Dos criterios que protegen la honestidad del tablero:
+
+1. **Coincidencia por límite de palabra.** `slam` no casa con `slamtec` — sin esto,
+   una orden de compra al proveedor Slamtec marcaba SLAM como resuelto.
+2. **Un archivo prueba trabajo, no cierre.** Solo sube a "hecha" si el nombre lo
+   declara terminado; lo demás queda "en curso" para que lo revise una persona.
+
+Cada corrida deja registro en `proyecto-reto/05-calidad/bitacora-evidencias.md`
+de qué archivo movió qué tarea. **Eso es la trazabilidad que evalúa el profesor.**
+
 ## Reglas del repositorio
 
 - **Los archivos pesados no van aquí.** CAD, ZIP, STEP, video y PDFs grandes viven en
@@ -97,8 +153,12 @@ Requiere `pip install openpyxl`.
 
 | Contenido | Herramienta |
 |---|---|
-| Documentación, ERP, código | **GitHub** (aquí) |
-| Tareas, BOM, seguimiento diario | **Notion** |
+| Documentación, códigos, planos PDF, cotizaciones | **GitHub** (aquí) |
+| Avance de las 54 tareas y los 6 hitos | **Tablero** |
+| Tareas del día a día, BOM y compras | **Notion** |
 | Conversación y archivos pesados de CAD | **Teams / SharePoint** |
 | Entregas oficiales y evidencias | **Canvas** |
+
+Detalle completo de cómo trabajamos:
+[`proyecto-reto/07-equipo/como-trabaja-el-equipo.md`](proyecto-reto/07-equipo/como-trabaja-el-equipo.md)
 

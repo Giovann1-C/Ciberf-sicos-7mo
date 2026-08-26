@@ -178,6 +178,10 @@ td.num{font-variant-numeric:tabular-nums; white-space:nowrap}
 }
 .eq .v{color:var(--data); font-weight:600}
 
+.tbl a{color:var(--data);text-decoration:none;border-bottom:1px solid var(--data)}
+.tbl a:hover{color:var(--accent);border-color:var(--accent)}
+.tbl a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
 footer{
   border-top:2px solid var(--ink); margin-top:56px; padding-top:20px;
   font-family:"JetBrains Mono",monospace; font-size:11.5px;
@@ -699,113 +703,137 @@ footer{
 <section>
   <div class="sheet"><span class="code">SH-07</span><h2>Cómo trabajamos</h2></div>
 
-  <p>El equipo captura en Notion, Rodrigo valida y Claude genera los documentos formales. <strong>Nadie comparte una cuenta</strong> y ningún dato vive en dos lugares a la vez.</p>
+  <p>Cada cosa vive en un solo lugar y los lugares están conectados. Lo que sube el
+  equipo a GitHub se convierte en avance visible sin que nadie tenga que reportarlo:
+  <strong>el nombre del archivo es la señal de estado</strong>.</p>
+
+  <div class="tbl"><table>
+    <thead><tr><th>Herramienta</th><th>Qué vive ahí</th><th>Acceso</th></tr></thead>
+    <tbody>
+      <tr><td><strong>GitHub</strong></td><td>Documentación, códigos, planos PDF, cotizaciones. La fuente de verdad</td><td><a href="https://github.com/Giovann1-C/Ciberf-sicos-7mo">Ciberf-sicos-7mo</a></td></tr>
+      <tr><td><strong>Tablero</strong></td><td>Avance de las 54 tareas y los 6 hitos</td><td><a href="https://claude.ai/code/artifact/60424a47-dd4a-4886-b8c6-f7c64939065b">abrir tablero</a></td></tr>
+      <tr><td><strong>Notion</strong></td><td>Tareas del día a día, BOM y compras</td><td><a href="https://app.notion.com/p/3c763d9e84498109aed6f0ff6afd4849">espacio del Reto</a></td></tr>
+      <tr><td><strong>Canvas</strong></td><td>Entregas oficiales. Lo único que se califica</td><td><a href="https://experiencia21.tec.mx/courses/707419">MR3005C.601</a></td></tr>
+      <tr><td><strong>Teams</strong></td><td>Conversación diaria y archivos pesados de CAD</td><td>canal del equipo</td></tr>
+    </tbody>
+  </table></div>
 
   <figure>
     <div class="canvas">
-      <svg viewBox="0 0 900 330" role="img" aria-label="Ciclo de trabajo: el equipo captura en Notion, Rodrigo valida, Claude genera órdenes de compra y documentos, y el resultado vuelve a Teams y Canvas.">
+      <svg viewBox="0 0 980 400" role="img" aria-label="Del archivo al avance: el equipo sube a GitHub, el sistema cruza los archivos contra el mapa de evidencias, Rodrigo autoriza y el tablero se actualiza para todos.">
         <defs>
-          <marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <marker id="a7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
             <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+          </marker>
+          <marker id="a7o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/>
           </marker>
         </defs>
 
-        <g font-family="Archivo, sans-serif" font-size="14" font-weight="600" fill="currentColor">
-          <rect x="30" y="120" width="160" height="66" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
-          <text x="110" y="148" text-anchor="middle">Equipo</text>
-          <text x="110" y="168" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="400" opacity=".75">4 integrantes</text>
+        <g font-family="Archivo, sans-serif" font-size="14.5" font-weight="600" fill="currentColor">
+          <rect x="24" y="150" width="176" height="72" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="112" y="180" text-anchor="middle">Equipo</text>
+          <text x="112" y="200" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="400" opacity=".75">termina algo</text>
 
-          <rect x="250" y="120" width="160" height="66" fill="var(--data-soft)" stroke="var(--data)" stroke-width="2"/>
-          <text x="330" y="148" text-anchor="middle">Notion</text>
-          <text x="330" y="168" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="400" opacity=".75">tareas · BOM · riesgos</text>
+          <rect x="268" y="150" width="176" height="72" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
+          <text x="356" y="180" text-anchor="middle">GitHub</text>
+          <text x="356" y="200" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="400" opacity=".75">fuente de verdad</text>
 
-          <rect x="470" y="120" width="160" height="66" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
-          <text x="550" y="148" text-anchor="middle">Rodrigo</text>
-          <text x="550" y="168" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="400" opacity=".75">director de proyecto</text>
+          <rect x="512" y="150" width="176" height="72" fill="var(--data-soft)" stroke="var(--data)" stroke-width="2"/>
+          <text x="600" y="180" text-anchor="middle">Claude</text>
+          <text x="600" y="200" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="400" opacity=".75">cruza evidencias</text>
 
-          <rect x="690" y="120" width="180" height="66" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2"/>
-          <text x="780" y="148" text-anchor="middle">Claude</text>
-          <text x="780" y="168" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="400" opacity=".75">agente / PM</text>
+          <rect x="756" y="150" width="200" height="72" fill="var(--surface-2)" stroke="currentColor" stroke-width="1.2"/>
+          <text x="856" y="180" text-anchor="middle">Tablero</text>
+          <text x="856" y="200" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" font-weight="400" opacity=".75">todos lo ven</text>
         </g>
 
-        <g stroke="currentColor" stroke-width="1.5" fill="none" marker-end="url(#a5)">
-          <line x1="192" y1="153" x2="246" y2="153"/>
-          <line x1="412" y1="153" x2="466" y2="153"/>
-          <line x1="632" y1="153" x2="686" y2="153"/>
+        <g stroke="currentColor" stroke-width="1.6" fill="none" marker-end="url(#a7)">
+          <line x1="202" y1="186" x2="262" y2="186"/>
+          <line x1="446" y1="186" x2="506" y2="186"/>
+          <line x1="690" y1="186" x2="750" y2="186"/>
         </g>
         <g font-family="JetBrains Mono, monospace" font-size="10" fill="currentColor" opacity=".8" text-anchor="middle">
-          <text x="219" y="144">captura</text>
-          <text x="439" y="144">valida</text>
-          <text x="659" y="144">pide</text>
+          <text x="232" y="176">sube</text>
+          <text x="476" y="176">lee</text>
+          <text x="720" y="176">marca</text>
         </g>
 
-        <!-- salidas de claude -->
-        <g font-family="Source Sans 3, sans-serif" font-size="12" fill="currentColor">
-          <rect x="690" y="34" width="180" height="34" fill="var(--surface)" stroke="var(--rule)" stroke-width="1.2"/>
-          <text x="780" y="56" text-anchor="middle">PO · OF · hojas viajeras</text>
-          <rect x="690" y="238" width="180" height="34" fill="var(--surface)" stroke="var(--rule)" stroke-width="1.2"/>
-          <text x="780" y="260" text-anchor="middle">Guías · briefs · análisis</text>
-        </g>
-        <g stroke="var(--accent)" stroke-width="1.4" fill="none">
-          <line x1="780" y1="116" x2="780" y2="72" marker-end="url(#a5)"/>
-          <line x1="780" y1="190" x2="780" y2="234" marker-end="url(#a5)"/>
-        </g>
+        <rect x="512" y="42" width="176" height="56" fill="var(--surface)" stroke="currentColor" stroke-width="1.2"/>
+        <text x="600" y="70" text-anchor="middle" font-family="Archivo, sans-serif" font-size="13.5" font-weight="600" fill="currentColor">Rodrigo</text>
+        <text x="600" y="87" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="currentColor" opacity=".75">autoriza</text>
+        <line x1="600" y1="100" x2="600" y2="146" stroke="currentColor" stroke-width="1.4" fill="none" marker-end="url(#a7)"/>
 
-        <!-- retorno -->
-        <path d="M690,51 L560,51 L560,116" stroke="currentColor" stroke-width="1.4" fill="none" stroke-dasharray="5 4" marker-end="url(#a5)"/>
-        <path d="M550,190 L550,296 L110,296 L110,190" stroke="currentColor" stroke-width="1.4" fill="none" stroke-dasharray="5 4" marker-end="url(#a5)"/>
-        <text x="330" y="290" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="10" fill="currentColor" opacity=".8">publica en Teams y Canvas</text>
+        <rect x="512" y="274" width="176" height="56" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.4"/>
+        <text x="600" y="298" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12.5" fill="currentColor">PO · OF · documentos</text>
+        <text x="600" y="316" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="currentColor" opacity=".7">y bitácora de evidencias</text>
+        <line x1="600" y1="226" x2="600" y2="270" stroke="var(--accent)" stroke-width="1.4" fill="none" marker-end="url(#a7o)"/>
+        <path d="M510,302 L356,302 L356,226" stroke="var(--accent)" stroke-width="1.4" fill="none" stroke-dasharray="5 4" marker-end="url(#a7o)"/>
+        <text x="428" y="318" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9.5" fill="var(--accent)">vuelven al repositorio</text>
+
+        <text x="490" y="378" text-anchor="middle" font-family="Source Sans 3, sans-serif" font-size="12.5" fill="currentColor" opacity=".75">Nadie comparte una cuenta y ningún dato vive en dos lugares a la vez.</text>
       </svg>
     </div>
-    <figcaption><b>FIG. 5</b>Claude no decide el alcance ni compromete dinero: genera el documento, Rodrigo autoriza. El equipo nunca toca la cuenta y aun así todo lo que captura llega a los entregables.</figcaption>
+    <figcaption><b>FIG. 5</b>El avance no se reporta: se deduce del trabajo. Claude propone, Rodrigo autoriza y queda bitácora de qué archivo movió qué tarea — que es justo la trazabilidad que evalúa el profesor.</figcaption>
   </figure>
 
+  <h3>La convención que hace que funcione</h3>
+  <div class="split">
+    <div class="box no">
+      <h4><code>chasis-agv.pdf</code></h4>
+      <p style="font-size:.93rem;color:var(--ink-2)">Queda en <strong>en curso</strong>. Prueba que alguien trabajó en el chasis, no que el chasis exista. El sistema no asume.</p>
+    </div>
+    <div class="box yes">
+      <h4><code>chasis-agv-final.pdf</code></h4>
+      <p style="font-size:.93rem;color:var(--ink-2)">Queda <strong>hecha</strong> y tachada. El nombre declara que el trabajo cerró.</p>
+    </div>
+  </div>
+  <p>Palabras que cierran una tarea: <code>final</code> · <code>aprobado</code> ·
+  <code>firmado</code> · <code>liberado</code> · <code>validado</code> ·
+  <code>entregado</code> · <code>terminado</code>. Nombres en kebab-case, sin acentos
+  ni espacios.</p>
+
+  <h3>Dos criterios que protegen la honestidad del tablero</h3>
+  <div class="cards">
+    <div class="card"><span class="n">CRITERIO 1</span><h4>Límite de palabra</h4><p><code>slam</code> no casa con <code>slamtec</code>. Sin esto, una orden de compra al proveedor Slamtec marcaba la tarea de SLAM como resuelta.</p></div>
+    <div class="card"><span class="n">CRITERIO 2</span><h4>Trabajo no es cierre</h4><p>Un archivo prueba que hubo trabajo. Solo sube a hecha si el nombre lo declara terminado; lo demás lo revisa una persona.</p></div>
+  </div>
+
+  <h3>Qué hace y qué no hace Claude</h3>
   <div class="split">
     <div class="box yes">
-      <h4>Lo que hace Claude</h4>
+      <h4>Lo que hace</h4>
       <ul>
-        <li>Emite PO, órdenes de fabricación y hojas viajeras en el formato del profesor, numeradas y registradas</li>
+        <li>Lee el repositorio y actualiza el tablero con evidencia real</li>
+        <li>Emite PO, órdenes de fabricación y hojas viajeras en el formato del profesor</li>
         <li>Calcula fechas de llegada por lead time y avisa qué está en riesgo</li>
-        <li>Brief automático de lunes a sábado a las 7:03</li>
-        <li>Responde dudas técnicas citando archivo y página de un índice de 773 páginas</li>
-        <li>Transcribe las libretas de GoodNotes y las conecta con el proyecto</li>
-        <li>Sincroniza Notion, archivos locales y Google Calendar</li>
+        <li>Responde dudas citando archivo y página de un índice de 81 documentos</li>
+        <li>Deja bitácora de qué archivo movió qué tarea</li>
       </ul>
     </div>
     <div class="box no">
       <h4>Lo que no hace</h4>
       <ul>
-        <li><strong>No decide el alcance.</strong> Señala las divergencias; la decisión es del equipo</li>
+        <li><strong>No decide el alcance.</strong> Señala las divergencias; decide el equipo</li>
         <li><strong>No compra.</strong> Genera la orden; la autoriza Rodrigo</li>
-        <li><strong>No sustituye al director de proyecto.</strong> Rodrigo aprueba y responde</li>
+        <li><strong>No inventa avance.</strong> Sin archivo, la tarea no se mueve</li>
+        <li><strong>No sube nada solo.</strong> El push lo dispara una persona</li>
         <li><strong>No lo usa el equipo directamente.</strong> Una sola cuenta, sin compartir</li>
       </ul>
     </div>
   </div>
 
-  <h3>Dónde vive cada cosa</h3>
-  <div class="tbl"><table>
-    <thead><tr><th>Contenido</th><th>Herramienta</th><th>Por qué ahí</th></tr></thead>
-    <tbody>
-      <tr><td>Tareas, BOM, compras</td><td><strong>Notion</strong></td><td>Todo el equipo edita, sin necesitar cuentas de Claude</td></tr>
-      <tr><td>Conversación diaria</td><td><strong>Teams</strong></td><td>Ya lo usan; no vale la pena mover al equipo</td></tr>
-      <tr><td>CAD, STEP, archivos pesados</td><td><strong>Teams / SharePoint</strong></td><td>Notion no es para 40 MB de modelos</td></tr>
-      <tr><td>PO, OF, documentación técnica</td><td><strong>Sistema local</strong></td><td>Generado y versionado automáticamente</td></tr>
-      <tr><td>Entregas oficiales</td><td><strong>Canvas</strong></td><td>Es lo único que se califica</td></tr>
-      <tr><td>Código ROS 2 y firmware</td><td><strong>Git</strong></td><td>Lo exige el profesor en el área 3 de la Actividad 2</td></tr>
-    </tbody>
-  </table></div>
-
   <h3>Ritmo semanal</h3>
   <div class="tbl"><table>
     <thead><tr><th>Cuándo</th><th>Qué pasa</th><th>Quién</th></tr></thead>
     <tbody>
+      <tr><td class="num">Al terminar algo</td><td>Subir el archivo a GitHub con el nombre correcto</td><td>Quien lo hizo</td></tr>
       <tr><td class="num">Lunes AM</td><td>Junta de avance, actualizar Notion</td><td>Equipo</td></tr>
-      <tr><td class="num">Lunes AM</td><td>Planeación de la semana y estado del reto</td><td>Rodrigo</td></tr>
+      <tr><td class="num">Lunes AM</td><td>Revisar el avance: el tablero se actualiza con lo que se subió</td><td>Rodrigo</td></tr>
       <tr><td class="num">Diario 7:03</td><td>Brief automático con alertas de plazo</td><td>Claude</td></tr>
       <tr><td class="num">Al cotizar</td><td>Actualizar proveedor, costo y lead time en el BOM</td><td>Quien cotiza</td></tr>
       <tr><td class="num">Al aprobar</td><td>Emitir la orden de compra</td><td>Rodrigo</td></tr>
-      <tr><td class="num">Viernes</td><td>Revisión de riesgos y avance contra plan</td><td>Rodrigo</td></tr>
+      <tr><td class="num">Viernes</td><td>Revisión de riesgos y avance contra plan</td><td>Equipo</td></tr>
     </tbody>
   </table></div>
 </section>
