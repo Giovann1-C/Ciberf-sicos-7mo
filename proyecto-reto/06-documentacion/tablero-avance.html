@@ -108,84 +108,435 @@ footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--rule);
 
 <script id="estado" type="application/json">
 {
-  "actualizado": "2026-08-25",
-  "equipo": ["—", "Rodrigo", "Giovanni", "Osmar", "Int. 4"],
-  "hitos": [
-    {"k":"H1","n":"PO críticas emitidas","f":"6 sep","e":0},
-    {"k":"H2","n":"Diseño congelado + FlexSim","f":"27 sep","e":0},
-    {"k":"H3","n":"AGV rodando con control","f":"25 oct","e":0},
-    {"k":"H4","n":"Navegación y docking","f":"8 nov","e":0},
-    {"k":"H5","n":"Ciclo completo con el Haas","f":"22 nov","e":0},
-    {"k":"H6","n":"Reporte integrador","f":"6 dic","e":0}
-  ],
-  "cols": [
-    {"wbs":"1.1","t":"Gestión del proyecto","ts":[
-      {"n":"Plan de dirección y control de cambios","e":2,"r":1},
-      {"n":"Cerrar BOM preliminar","e":1,"r":0,"c":1},
-      {"n":"WBS completo y matriz RACI","e":0,"r":0,"c":1},
-      {"n":"Cotizar riel lineal con 2 proveedores","e":0,"r":0,"c":1},
-      {"n":"Cotizar LiDAR (buscar opción nacional)","e":0,"r":0,"c":1},
-      {"n":"EMITIR las 5 PO críticas","e":0,"r":0,"c":1},
-      {"n":"Agendar ventana de acceso al CNC Haas","e":0,"r":0,"c":1},
-      {"n":"Evidencia 1 — Anteproyecto (6 %)","e":0,"r":1,"c":1},
-      {"n":"Evidencia 2 — Demostrativa (10 %)","e":0,"r":1},
-      {"n":"Evidencia 3 — Argumentativa (10 %)","e":0,"r":1},
-      {"n":"Evidencia 4 — Reporte integrador (10 %)","e":0,"r":1}
-    ]},
-    {"wbs":"1.2","t":"AGV omnidireccional","ts":[
-      {"n":"Chasis de perfil de aluminio 40×40","e":0,"r":0},
-      {"n":"Montajes de motor y plataforma de carga","e":0,"r":0},
-      {"n":"Montar 4 ruedas mecanum + motorreductores","e":0,"r":0},
-      {"n":"Modelo cinemático omnidireccional","e":0,"r":0},
-      {"n":"Driver de 4 canales con lectura de encoder","e":0,"r":0},
-      {"n":"Batería LiFePO4 + distribución 24 V / 5 V","e":0,"r":0},
-      {"n":"Circuito de paro de emergencia (cableado)","e":0,"r":0,"c":1},
-      {"n":"Firmware NXP: lectura de encoders","e":0,"r":0},
-      {"n":"Lazos PI / PD / PID por rueda","e":0,"r":0,"c":1},
-      {"n":"Watchdog y modo seguro","e":0,"r":0},
-      {"n":"Validar frecuencia de lazo ≥ 200 Hz","e":0,"r":0,"c":1},
-      {"n":"Integrar LiDAR, IMU y cámara frontal","e":0,"r":0},
-      {"n":"SLAM con slam_toolbox","e":0,"r":0},
-      {"n":"Localización AMCL sobre mapa guardado","e":0,"r":0},
-      {"n":"Planeación con Nav2 (global y local)","e":0,"r":0},
-      {"n":"Acción de docking por AprilTag","e":0,"r":0},
-      {"n":"Publicación de estado por MQTT/TLS","e":0,"r":0}
-    ]},
-    {"wbs":"1.3","t":"Brazo / cobot y riel","ts":[
-      {"n":"DECIDIR: brazo propio o cobot comercial","e":0,"r":1,"c":1},
-      {"n":"Diseño y fabricación del riel de 2.5 m","e":0,"r":0},
-      {"n":"Efector final (gripper)","e":0,"r":0},
-      {"n":"Trayectorias enseñadas en el pendant","e":0,"r":0},
-      {"n":"Seguridad colaborativa ISO/TS 15066","e":0,"r":0,"c":1}
-    ]},
-    {"wbs":"1.4","t":"Visión industrial","ts":[
-      {"n":"Montaje de cámara RGB-D sobre la mesa","e":0,"r":0},
-      {"n":"Calibración cámara–fixture con ChArUco","e":0,"r":0},
-      {"n":"Criterio 1: presencia de la pieza","e":0,"r":0},
-      {"n":"Criterio 2: orientación contra plantilla","e":0,"r":0},
-      {"n":"Criterio 3: asentamiento sobre topes","e":0,"r":0},
-      {"n":"Criterio 4: ausencia de objetos extraños","e":0,"r":0},
-      {"n":"Publicar veredicto pass/fail por MQTT","e":0,"r":0}
-    ]},
-    {"wbs":"1.5","t":"Integración de celda","ts":[
-      {"n":"Supervisor y máquina de estados","e":0,"r":0},
-      {"n":"Cliente MTConnect (Haas :8082, 250 ms)","e":0,"r":0},
-      {"n":"Transferencia de programas por SMB + hash","e":0,"r":0},
-      {"n":"Handshake por M-códigos e I/O discreta","e":0,"r":0,"c":1},
-      {"n":"Fixture indexado para la mesa del Haas","e":0,"r":0},
-      {"n":"Pallet indexado de 5 posiciones","e":0,"r":0},
-      {"n":"Dashboard de OEE y trazabilidad","e":0,"r":0}
-    ]},
-    {"wbs":"1.6","t":"Validación y documentación","ts":[
-      {"n":"QA eléctrico: continuidad y aislamiento","e":0,"r":0},
-      {"n":"QA mecánico: torque 45 Nm verificado","e":0,"r":0},
-      {"n":"QA dinámico: freno < 0.5 s a 2 m","e":0,"r":0,"c":1},
-      {"n":"5 ciclos completos sin intervención","e":0,"r":0,"c":1},
-      {"n":"Manuales de ingeniería de aplicaciones","e":0,"r":0},
-      {"n":"Simulación de estaciones en FlexSim","e":0,"r":0},
-      {"n":"Hojas viajeras firmadas por estación","e":0,"r":0}
-    ]}
-  ]
+ "actualizado": "2026-08-25",
+ "equipo": [
+  "—",
+  "Rodrigo",
+  "Giovanni",
+  "Osmar",
+  "Int. 4"
+ ],
+ "hitos": [
+  {
+   "k": "H1",
+   "n": "PO críticas emitidas",
+   "f": "6 sep",
+   "e": 0,
+   "id": "H1"
+  },
+  {
+   "k": "H2",
+   "n": "Diseño congelado + FlexSim",
+   "f": "27 sep",
+   "e": 0,
+   "id": "H2"
+  },
+  {
+   "k": "H3",
+   "n": "AGV rodando con control",
+   "f": "25 oct",
+   "e": 0,
+   "id": "H3"
+  },
+  {
+   "k": "H4",
+   "n": "Navegación y docking",
+   "f": "8 nov",
+   "e": 0,
+   "id": "H4"
+  },
+  {
+   "k": "H5",
+   "n": "Ciclo completo con el Haas",
+   "f": "22 nov",
+   "e": 0,
+   "id": "H5"
+  },
+  {
+   "k": "H6",
+   "n": "Reporte integrador",
+   "f": "6 dic",
+   "e": 0,
+   "id": "H6"
+  }
+ ],
+ "cols": [
+  {
+   "wbs": "1.1",
+   "t": "Gestión del proyecto",
+   "ts": [
+    {
+     "n": "Plan de dirección y control de cambios",
+     "e": 2,
+     "r": 1,
+     "id": "1.1.1"
+    },
+    {
+     "n": "Cerrar BOM preliminar",
+     "e": 1,
+     "r": 0,
+     "c": 1,
+     "id": "1.1.2"
+    },
+    {
+     "n": "WBS completo y matriz RACI",
+     "e": 0,
+     "r": 0,
+     "c": 1,
+     "id": "1.1.3"
+    },
+    {
+     "n": "Cotizar riel lineal con 2 proveedores",
+     "e": 0,
+     "r": 0,
+     "c": 1,
+     "id": "1.1.4"
+    },
+    {
+     "n": "Cotizar LiDAR (buscar opción nacional)",
+     "e": 0,
+     "r": 0,
+     "c": 1,
+     "id": "1.1.5"
+    },
+    {
+     "n": "EMITIR las 5 PO críticas",
+     "e": 1,
+     "r": 0,
+     "c": 1,
+     "id": "1.1.6"
+    },
+    {
+     "n": "Agendar ventana de acceso al CNC Haas",
+     "e": 0,
+     "r": 0,
+     "c": 1,
+     "id": "1.1.7"
+    },
+    {
+     "n": "Evidencia 1 — Anteproyecto (6 %)",
+     "e": 0,
+     "r": 1,
+     "c": 1,
+     "id": "1.1.8"
+    },
+    {
+     "n": "Evidencia 2 — Demostrativa (10 %)",
+     "e": 0,
+     "r": 1,
+     "id": "1.1.9"
+    },
+    {
+     "n": "Evidencia 3 — Argumentativa (10 %)",
+     "e": 0,
+     "r": 1,
+     "id": "1.1.10"
+    },
+    {
+     "n": "Evidencia 4 — Reporte integrador (10 %)",
+     "e": 0,
+     "r": 1,
+     "id": "1.1.11"
+    }
+   ]
+  },
+  {
+   "wbs": "1.2",
+   "t": "AGV omnidireccional",
+   "ts": [
+    {
+     "n": "Chasis de perfil de aluminio 40×40",
+     "e": 1,
+     "r": 0,
+     "id": "1.2.1"
+    },
+    {
+     "n": "Montajes de motor y plataforma de carga",
+     "e": 0,
+     "r": 0,
+     "id": "1.2.2"
+    },
+    {
+     "n": "Montar 4 ruedas mecanum + motorreductores",
+     "e": 0,
+     "r": 0,
+     "id": "1.2.3"
+    },
+    {
+     "n": "Modelo cinemático omnidireccional",
+     "e": 0,
+     "r": 0,
+     "id": "1.2.4"
+    },
+    {
+     "n": "Driver de 4 canales con lectura de encoder",
+     "e": 0,
+     "r": 0,
+     "id": "1.2.5"
+    },
+    {
+     "n": "Batería LiFePO4 + distribución 24 V / 5 V",
+     "e": 0,
+     "r": 0,
+     "id": "1.2.6"
+    },
+    {
+     "n": "Circuito de paro de emergencia (cableado)",
+     "e": 0,
+     "r": 0,
+     "c": 1,
+     "id": "1.2.7"
+    },
+    {
+     "n": "Firmware NXP: lectura de encoders",
+     "e": 0,
+     "r": 0,
+     "id": "1.2.8"
+    },
+    {
+     "n": "Lazos PI / PD / PID por rueda",
+     "e": 0,
+     "r": 0,
+     "c": 1,
+     "id": "1.2.9"
+    },
+    {
+     "n": "Watchdog y modo seguro",
+     "e": 0,
+     "r": 0,
+     "id": "1.2.10"
+    },
+    {
+     "n": "Validar frecuencia de lazo ≥ 200 Hz",
+     "e": 0,
+     "r": 0,
+     "c": 1,
+     "id": "1.2.11"
+    },
+    {
+     "n": "Integrar LiDAR, IMU y cámara frontal",
+     "e": 0,
+     "r": 0,
+     "id": "1.2.12"
+    },
+    {
+     "n": "SLAM con slam_toolbox",
+     "e": 0,
+     "r": 0,
+     "id": "1.2.13"
+    },
+    {
+     "n": "Localización AMCL sobre mapa guardado",
+     "e": 0,
+     "r": 0,
+     "id": "1.2.14"
+    },
+    {
+     "n": "Planeación con Nav2 (global y local)",
+     "e": 0,
+     "r": 0,
+     "id": "1.2.15"
+    },
+    {
+     "n": "Acción de docking por AprilTag",
+     "e": 0,
+     "r": 0,
+     "id": "1.2.16"
+    },
+    {
+     "n": "Publicación de estado por MQTT/TLS",
+     "e": 0,
+     "r": 0,
+     "id": "1.2.17"
+    }
+   ]
+  },
+  {
+   "wbs": "1.3",
+   "t": "Brazo / cobot y riel",
+   "ts": [
+    {
+     "n": "DECIDIR: brazo propio o cobot comercial",
+     "e": 0,
+     "r": 1,
+     "c": 1,
+     "id": "1.3.1"
+    },
+    {
+     "n": "Diseño y fabricación del riel de 2.5 m",
+     "e": 0,
+     "r": 0,
+     "id": "1.3.2"
+    },
+    {
+     "n": "Efector final (gripper)",
+     "e": 0,
+     "r": 0,
+     "id": "1.3.3"
+    },
+    {
+     "n": "Trayectorias enseñadas en el pendant",
+     "e": 0,
+     "r": 0,
+     "id": "1.3.4"
+    },
+    {
+     "n": "Seguridad colaborativa ISO/TS 15066",
+     "e": 0,
+     "r": 0,
+     "c": 1,
+     "id": "1.3.5"
+    }
+   ]
+  },
+  {
+   "wbs": "1.4",
+   "t": "Visión industrial",
+   "ts": [
+    {
+     "n": "Montaje de cámara RGB-D sobre la mesa",
+     "e": 0,
+     "r": 0,
+     "id": "1.4.1"
+    },
+    {
+     "n": "Calibración cámara–fixture con ChArUco",
+     "e": 0,
+     "r": 0,
+     "id": "1.4.2"
+    },
+    {
+     "n": "Criterio 1: presencia de la pieza",
+     "e": 0,
+     "r": 0,
+     "id": "1.4.3"
+    },
+    {
+     "n": "Criterio 2: orientación contra plantilla",
+     "e": 0,
+     "r": 0,
+     "id": "1.4.4"
+    },
+    {
+     "n": "Criterio 3: asentamiento sobre topes",
+     "e": 0,
+     "r": 0,
+     "id": "1.4.5"
+    },
+    {
+     "n": "Criterio 4: ausencia de objetos extraños",
+     "e": 0,
+     "r": 0,
+     "id": "1.4.6"
+    },
+    {
+     "n": "Publicar veredicto pass/fail por MQTT",
+     "e": 0,
+     "r": 0,
+     "id": "1.4.7"
+    }
+   ]
+  },
+  {
+   "wbs": "1.5",
+   "t": "Integración de celda",
+   "ts": [
+    {
+     "n": "Supervisor y máquina de estados",
+     "e": 0,
+     "r": 0,
+     "id": "1.5.1"
+    },
+    {
+     "n": "Cliente MTConnect (Haas :8082, 250 ms)",
+     "e": 0,
+     "r": 0,
+     "id": "1.5.2"
+    },
+    {
+     "n": "Transferencia de programas por SMB + hash",
+     "e": 0,
+     "r": 0,
+     "id": "1.5.3"
+    },
+    {
+     "n": "Handshake por M-códigos e I/O discreta",
+     "e": 0,
+     "r": 0,
+     "c": 1,
+     "id": "1.5.4"
+    },
+    {
+     "n": "Fixture indexado para la mesa del Haas",
+     "e": 0,
+     "r": 0,
+     "id": "1.5.5"
+    },
+    {
+     "n": "Pallet indexado de 5 posiciones",
+     "e": 0,
+     "r": 0,
+     "id": "1.5.6"
+    },
+    {
+     "n": "Dashboard de OEE y trazabilidad",
+     "e": 0,
+     "r": 0,
+     "id": "1.5.7"
+    }
+   ]
+  },
+  {
+   "wbs": "1.6",
+   "t": "Validación y documentación",
+   "ts": [
+    {
+     "n": "QA eléctrico: continuidad y aislamiento",
+     "e": 0,
+     "r": 0,
+     "id": "1.6.1"
+    },
+    {
+     "n": "QA mecánico: torque 45 Nm verificado",
+     "e": 0,
+     "r": 0,
+     "id": "1.6.2"
+    },
+    {
+     "n": "QA dinámico: freno < 0.5 s a 2 m",
+     "e": 0,
+     "r": 0,
+     "c": 1,
+     "id": "1.6.3"
+    },
+    {
+     "n": "5 ciclos completos sin intervención",
+     "e": 0,
+     "r": 0,
+     "c": 1,
+     "id": "1.6.4"
+    },
+    {
+     "n": "Manuales de ingeniería de aplicaciones",
+     "e": 0,
+     "r": 0,
+     "id": "1.6.5"
+    },
+    {
+     "n": "Simulación de estaciones en FlexSim",
+     "e": 0,
+     "r": 0,
+     "id": "1.6.6"
+    },
+    {
+     "n": "Hojas viajeras firmadas por estación",
+     "e": 1,
+     "r": 0,
+     "id": "1.6.7"
+    }
+   ]
+  }
+ ]
 }
 </script>
 
