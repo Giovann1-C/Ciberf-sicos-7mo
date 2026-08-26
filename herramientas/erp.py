@@ -104,6 +104,89 @@ def cmd_material(a):
     return 0
 
 
+# ------------------------------------------------------------- actualizar
+def cmd_actualizar(a):
+    """Actualiza un material del catalogo con los datos reales de la cotizacion."""
+    filas = catalogo()
+    fila = None
+    for f in filas:
+        if f["codigo_erp"] == a.codigo:
+            fila = f
+            break
+    if fila is None:
+        print("No existe el codigo %s" % a.codigo)
+        print("Revisa la lista con: python sistema/erp.py estado")
+        return 1
+
+    cambios = []
+    for campo, valor in [("proveedor", a.proveedor), ("costo_unitario", a.costo),
+                         ("lead_time_semanas", a.lead), ("fabricante", a.marca),
+                         ("stock", a.stock), ("estado", a.estado),
+                         ("numero_parte", a.parte)]:
+        if valor is not None:
+            cambios.append("%s: %s -> %s" % (campo, fila[campo] or "(vacio)", valor))
+            fila[campo] = valor
+
+    if not cambios:
+        print("No indicaste nada que cambiar. Ejemplo:")
+        print('  python sistema/erp.py actualizar --codigo %s --proveedor "Nexus" --costo 1750 --lead 3' % a.codigo)
+        return 1
+
+    guardar_catalogo(filas)
+    print("Actualizado %s" % a.codigo)
+    for c in cambios:
+        print("   " + c)
+
+    if fila["proveedor"] not in ("POR DEFINIR", "") and float(fila["costo_unitario"] or 0) > 0:
+        print("\nYa tiene proveedor y costo: se puede emitir su orden de compra.")
+    return 0
+
+
+# ---------------------------------------------------------------- recibir
+def cmd_recibir(a):
+    """Marca una orden de compra como recibida y sube el stock de sus materiales."""
+    if not os.path.exists(REG_PO):
+        print("No hay ordenes emitidas todavia.")
+        return 1
+    with open(REG_PO, encoding="utf-8") as f:
+        pos = list(csv.DictReader(f))
+    fila = None
+    for p in pos:
+        if p["no_orden"] == a.orden:
+            fila = p
+            break
+    if fila is None:
+        print("No existe la orden %s" % a.orden)
+        print("Ordenes registradas: " + ", ".join(p["no_orden"] for p in pos))
+        return 1
+
+    anterior = fila["estado"]
+    fila["estado"] = a.estado
+    campos = ["no_orden", "fecha", "proveedor", "items", "total_mxn",
+              "lead_max_sem", "estado", "fecha_estimada"]
+    with open(REG_PO, "w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=campos)
+        w.writeheader()
+        w.writerows(pos)
+    print("%s: %s -> %s" % (a.orden, anterior, a.estado))
+
+    if a.items:
+        filas = catalogo()
+        idx = {f["codigo_erp"]: f for f in filas}
+        for trozo in a.items.split(","):
+            cod, _, cant = trozo.partition(":")
+            cod = cod.strip()
+            if cod not in idx:
+                print("   no existe en el catalogo: %s" % cod)
+                continue
+            antes = int(idx[cod]["stock"] or 0)
+            idx[cod]["stock"] = str(antes + int(cant or 1))
+            idx[cod]["estado"] = "recibido"
+            print("   stock %s: %s -> %s" % (cod, antes, idx[cod]["stock"]))
+        guardar_catalogo(filas)
+    return 0
+
+
 # ----------------------------------------------------------------------- PO
 def cmd_po(a):
     import openpyxl
@@ -360,6 +443,24 @@ def main():
     f.add_argument("--parte", required=True)
     f.add_argument("--cantidad", default="1")
     f.add_argument("--entrega", required=True)
+
+    u = sub.add_parser("actualizar")
+    u.set_defaults(f=cmd_actualizar)
+    u.add_argument("--codigo", required=True)
+    u.add_argument("--proveedor")
+    u.add_argument("--costo")
+    u.add_argument("--lead")
+    u.add_argument("--marca")
+    u.add_argument("--parte")
+    u.add_argument("--stock")
+    u.add_argument("--estado")
+
+    r = sub.add_parser("recibir")
+    r.set_defaults(f=cmd_recibir)
+    r.add_argument("--orden", required=True)
+    r.add_argument("--items", default="")
+    r.add_argument("--estado", default="recibida",
+                   choices=["emitida", "en transito", "recibida", "cancelada"])
 
     e = sub.add_parser("estado")
     e.set_defaults(f=cmd_estado)

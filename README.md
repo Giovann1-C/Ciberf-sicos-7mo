@@ -112,7 +112,12 @@ python herramientas/erp.py po --proveedor "Nexus Robot" --contacto "Ventas" \
 python herramientas/erp.py of --parte "AGV Mecanum" --cantidad 1 --entrega 2026-10-18
 ```
 
-Requiere `pip install openpyxl`.
+Requiere `pip install openpyxl`. Hay dos comandos más: `actualizar` mete la
+cotización real en un material y `recibir` marca la orden como llegada y sube el
+stock.
+
+**Paso a paso completo:**
+[`proyecto-reto/03-compras/como-emitir-una-orden.md`](proyecto-reto/03-compras/como-emitir-una-orden.md)
 
 ## Cómo se convierte lo que suben en avance
 
