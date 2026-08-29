@@ -1,2 +1,4 @@
 no_orden,fecha,proveedor,items,total_mxn,lead_max_sem,estado,fecha_estimada
-OC-2026-001,2026-08-25,Slamtec distribuidor MX,2,5350.0,6,emitida,2026-10-06
+OC-2026-001,2026-08-25,Slamtec distribuidor MX,2,5350.0,6,cancelada,2026-10-06
+OC-2026-002,2026-08-29,NXP,1,27685.85,1,cancelada,2026-09-05
+OC-2026-003,2026-08-29,NXP,1,5537.15,1,emitida,2026-09-05

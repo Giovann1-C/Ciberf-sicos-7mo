@@ -31,6 +31,16 @@ mecánicas y eléctricas), no con el CAD terminado. Es exactamente el riesgo que
 el profe pidió documentar en la Actividad 2 ("si los LiDAR de Asia se retrasan
 4 semanas").
 
+> **🟢 Actualización 2026-08-29 — el riesgo se redujo a la mitad.** Los profesores
+> van a proporcionar (préstamo/donación, no compra) el **riel lineal**, el
+> **LiDAR**, el **módulo I/O Ethernet**, el balero de rodillos cruzados y el
+> motorreductor. El driver de motor 4CH y el MCU S32K312 **ya se recibieron**
+> (4 y 5 piezas respectivamente). Eso deja como únicas compras con riesgo real
+> de calendario a la **batería LiFePO4** (5 sem, pedir antes del 29-sep) y el
+> **cómputo supervisor clase Jetson Orin Nano** (5 sem, faltaba en el BOM
+> original — también pedir antes del 29-sep). Detalle actualizado en
+> `sistema/erp.py estado` y en el [ERP del Reto](https://claude.ai/code/artifact/47824707-6f46-4a4d-9dbe-3fa66711b7e3).
+
 ---
 
 ## Fases
@@ -44,9 +54,9 @@ Entregado: INTRO, Trazabilidad del proyecto, Evidencia Fotográfica Material 1.
 | 1.1 | Congelar alcance y criterios de aceptación | | pendiente |
 | 1.2 | WBS completo y matriz RACI del equipo | | pendiente |
 | 1.3 | **BOM preliminar cerrado** (bloquea compras) | | en curso |
-| 1.4 | Cotizar los 4 componentes de lead largo | | **URGENTE** |
+| 1.4 | Cotizar batería LiFePO4 y SBC clase Jetson (únicos de lead largo que sí se compran) | | **URGENTE** |
 | 1.5 | Fichas de proveeduría de los críticos | | pendiente |
-| 1.6 | **Emitir PO de riel, LiDAR, batería, I/O** | | **antes del 6 sep** |
+| 1.6 | **Emitir PO de batería y SBC** — riel/LiDAR/I-O ya no requieren PO (los da el profe) | | **antes del 29 sep** |
 | 1.7 | **Evidencia 1 — Anteproyecto (6 %)** | Rodrigo | pendiente |
 | 1.8 | Actividad 3 de M3 (vence 31 ago) | Rodrigo | pendiente |
 
