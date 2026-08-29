@@ -274,20 +274,22 @@ liberada, hoja viajera firmada por estación, y bitácora de sintonía de contro
 
 ## 6.1 Matriz RACI
 
-> Llenar con los nombres reales del equipo. R = responsable ejecuta ·
-> A = aprueba · C = consultado · I = informado.
+> R = responsable ejecuta · A = aprueba (dueño del resultado) · C = consultado ·
+> I = informado. Roles confirmados por Rodrigo el 2026-08-29; **1.2.6 Navegación**
+> quedó bajo Rodrigo por defecto porque nadie del equipo la reclamó todavía —
+> confírmenlo en la próxima junta.
 
-| Paquete | Rodrigo | Integrante 2 | Integrante 3 | Integrante 4 | Docentes |
-|---|---|---|---|---|---|
-| 1.1 Gestión del proyecto | **A/R** | C | C | C | I |
-| 1.2 AGV — estructura y tracción | C | **R** | C | | I |
-| 1.2.4 Control NXP (PI/PD/PID) | **R** | C | | | I |
-| 1.2.6 Navegación ROS 2 | C | | **R** | C | I |
-| 1.3 Brazo / cobot y riel | C | C | | **R** | I |
-| 1.4 Visión | | | **R** | C | I |
-| 1.5 Integración de celda | **R** | C | C | C | C |
-| 1.6 Validación y documentación | **A** | R | R | R | **A** |
-| Evidencias individuales | **R** | R | R | R | **A** |
+| Paquete | Rodrigo | Osmar | Samuel | Giovanni | Perla | Docentes |
+|---|---|---|---|---|---|---|
+| 1.1 Gestión del proyecto | **A/R** | C | C | C | C | I |
+| 1.2 AGV — estructura, tracción y potencia | **R/A** | | | | | I |
+| 1.2.4 Control NXP (PI/PD/PID) | **A** | | **R** | | | I |
+| 1.2.6 Navegación ROS 2 (SLAM/Nav2) ⚠ sin dueño confirmado | **R/A** | | C | | | I |
+| 1.3 Brazo / cobot y riel | C | **R/A** | | | | I |
+| 1.4 Visión | C | | | **R/A** | | I |
+| 1.5 Integración de celda (Haas, MTConnect) | C | | | | **R/A** | C |
+| 1.6 Validación y documentación | **A** | R | R | R | R | **A** |
+| Evidencias individuales (4, personales) | **R** | R | R | R | R | **A** |
 
 ## 6.2 Recursos físicos requeridos
 - Laboratorio de manufactura con **CNC Haas NGC** (ventana a reservar)

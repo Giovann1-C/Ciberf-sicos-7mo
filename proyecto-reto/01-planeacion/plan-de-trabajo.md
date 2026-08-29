@@ -52,7 +52,7 @@ Entregado: INTRO, Trazabilidad del proyecto, Evidencia Fotográfica Material 1.
 | # | Tarea | Responsable | Estado |
 |---|---|---|---|
 | 1.1 | Congelar alcance y criterios de aceptación | | pendiente |
-| 1.2 | WBS completo y matriz RACI del equipo | | pendiente |
+| 1.2 | WBS completo y matriz RACI del equipo | Rodrigo | hecho (confirmar dueño de Navegación ROS2 en junta) |
 | 1.3 | **BOM preliminar cerrado** (bloquea compras) | | en curso |
 | 1.4 | Cotizar batería LiFePO4 y SBC clase Jetson (únicos de lead largo que sí se compran) | | **URGENTE** |
 | 1.5 | Fichas de proveeduría de los críticos | | pendiente |
