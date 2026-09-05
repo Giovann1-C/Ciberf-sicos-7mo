@@ -13,14 +13,16 @@ versiones del mismo documento.
 
 ## 1 · Carta Proyecto con datos del socio formador
 
-- 📄 **[Ver en pantalla (Markdown)](https://github.com/Giovann1-C/Ciberf-sicos-7mo/blob/main/proyecto-reto/01-planeacion/carta-proyecto.md)** ← recomendado, GitHub lo renderiza
-- 📎 [Descargar en Word](https://github.com/Giovann1-C/Ciberf-sicos-7mo/blob/main/proyecto-reto/01-planeacion/Carta-Proyecto-Automatizacion-CNC.docx)
+- 📕 **[Documento original en PDF](https://github.com/Giovann1-C/Ciberf-sicos-7mo/blob/main/proyecto-reto/01-planeacion/Carta-Proyecto-Automatizacion-CNC.pdf)** ← versión firmada por el equipo
+- 📄 [Ver en pantalla (Markdown)](https://github.com/Giovann1-C/Ciberf-sicos-7mo/blob/main/proyecto-reto/01-planeacion/carta-proyecto.md) — GitHub lo renderiza sin descargar
+- 📎 [Versión en Word](https://github.com/Giovann1-C/Ciberf-sicos-7mo/blob/main/proyecto-reto/01-planeacion/Carta-Proyecto-Automatizacion-CNC.docx)
 
-Incluye problemática, objetivo general y específicos, alcance, entregables,
-restricciones, cronograma de 18 semanas y matriz de 13 riesgos.
+Corregida con los datos aportados por el socio formador. Incluye encargados del
+proyecto, problemática, objetivo general y específicos, alcance, entregables,
+restricciones, supuestos, cronograma y riesgos.
 
-> Los campos del socio formador (organización, representante, contacto) están
-> marcados como pendientes: se completan tras la reunión de definición.
+Las tres versiones tienen el mismo contenido; el PDF es el documento de
+referencia del equipo.
 
 ## 2 · Sistema ERP
 
