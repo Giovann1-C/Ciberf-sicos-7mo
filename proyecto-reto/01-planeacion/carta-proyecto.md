@@ -103,9 +103,9 @@ El equipo tendrá acceso a software y herramientas necesarias para desarrollo, s
 
 **Semanas 14 y 15. Integración de la celda.** Montaje del cobot industrial sobre el riel lineal, implementación del sistema de visión y de la comunicación digital entre el supervisor y las máquinas.
 
-**Semanas 16 y 17. Pruebas y resultados.** Ejecución del protocolo de pruebas de carga, descarga y validación. Verificación de la seguridad industrial y de la ciberseguridad del sistema. Documentación técnica.
+**Semana 16. Pruebas y resultados.** Ejecución del protocolo de pruebas de carga, descarga y validación. Verificación de la seguridad industrial y de la ciberseguridad del sistema.
 
-**Semana 18. Demostración final.** Presentación del prototipo funcional integrado ante el socio formador y entrega del expediente documental completo.
+**Semana 17. Documentación y demostración final.** Cierre de la documentación técnica, presentación del prototipo funcional integrado ante el socio formador y entrega del expediente documental completo.
 
 ## Riesgos
 
