@@ -1,7 +1,8 @@
 # Actividad 5 — Módulo 3, Administración de Proyectos
 
-**Proyecto:** Sistema de automatización para talleres de CNC
-**Curso:** MR3005C.601 — Sistemas Ciber-Físicos · Ago–Dic 2026
+**Proyecto:** Sistema de automatización para talleres de CNC//
+**Curso:** MR3005C.601 — Sistemas Ciber-Físicos · Ago–Dic 2026//
+
 **Equipo:** Rodrigo Herrera Baños A01738608 · Osmar Artemio Gonzalez Alatorre A01645216· Samuel Sebastian Vázquez Gasca A01639337 · Diego Giovanni Castellanos García A01639992· Perla Cecilia Rentería Rodríguez A01645074
 **Fecha de entrega:** 2026-09-04
 
