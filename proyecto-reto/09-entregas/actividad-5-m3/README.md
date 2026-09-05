@@ -6,13 +6,13 @@
 
 **Equipo:** 
 
-Rodrigo Herrera Baños A01738608 · 
+Rodrigo Herrera Baños A01738608
 
-Osmar Artemio Gonzalez Alatorre A01645216 ·
+Osmar Artemio Gonzalez Alatorre A01645216
 
-Samuel Sebastian Vázquez Gasca A01639337 · 
+Samuel Sebastian Vázquez Gasca A01639337
 
-Diego Giovanni Castellanos García A01639992 · 
+Diego Giovanni Castellanos García A01639992
 
 Perla Cecilia Rentería Rodríguez A01645074
 
