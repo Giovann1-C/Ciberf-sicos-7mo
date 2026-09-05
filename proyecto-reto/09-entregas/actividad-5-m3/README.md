@@ -19,8 +19,7 @@ Perla Cecilia Rentería Rodríguez A01645074
 **Fecha de entrega:** 2026-09-04
 
 Índice de los ocho entregables de la actividad. Cada enlace va al archivo real
-dentro de este mismo repositorio; aquí no hay copias, para que no existan dos
-versiones del mismo documento.
+dentro de este mismo repositorio
 
 ---
 
