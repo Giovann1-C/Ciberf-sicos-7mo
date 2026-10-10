@@ -69,6 +69,12 @@ def siguiente(registro, prefijo, columna):
     return "%s-%03d" % (prefijo, n + 1)
 
 
+def cantidad(texto):
+    """Cantidad de un item: entera para piezas, decimal para metros/kg (1.13)."""
+    n = 1.0 if texto in (None, "") else float(texto)
+    return int(n) if n == int(n) else round(n, 3)
+
+
 def lead_max(items):
     return max(int(m["lead_time_semanas"] or 0) for m, _ in items)
 
@@ -179,8 +185,8 @@ def cmd_recibir(a):
             if cod not in idx:
                 print("   no existe en el catalogo: %s" % cod)
                 continue
-            antes = int(idx[cod]["stock"] or 0)
-            idx[cod]["stock"] = str(antes + int(cant or 1))
+            antes = cantidad(idx[cod]["stock"] or "0")
+            idx[cod]["stock"] = str(cantidad(antes + cantidad(cant)))
             idx[cod]["estado"] = "recibido"
             print("   stock %s: %s -> %s" % (cod, antes, idx[cod]["stock"]))
         guardar_catalogo(filas)
@@ -200,7 +206,7 @@ def cmd_po(a):
         if cod not in cat:
             print("No existe en el catalogo: %s" % cod)
             return 1
-        items.append((cat[cod], int(cant or 1)))
+        items.append((cat[cod], cantidad(cant)))
 
     num = siguiente(REG_PO, "OC-2026", "no_orden")
     hoy = datetime.date.today()

@@ -19,6 +19,11 @@ _(deja aqui el PDF del datasheet)_
 ## Cotizaciones
 | Fecha | Proveedor | Precio | Lead time |
 |---|---|---|---|
+| 2026-09-30 | Metales MarChina (web, A249cr) | $680.22/m (sin confirmar) | 1 sem |
+| 2026-10-10 | Metales MarChina (compra real) | $1,266.00 por 1.13 m = $1,120.35/m | inmediato |
+
+## Compra (OC-2026-009, recibida)
+Tramos comprados: **40 · 35 · 26 · 12 cm** = 1.13 m. Sustituye a las OC-2026-005 y -008 (canceladas).
 
 ## Lista de corte (2026-09-30)
 Tramos de ancho completo (152.4): Brazo_2 379.5 · Brazo_3 329.5 · Brazo4_1 238 · Brazo1_1 170 mm = 1117 mm + cortes -> pedir 1.2 m.

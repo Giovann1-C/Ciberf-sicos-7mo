@@ -9,7 +9,6 @@ INT-DRV-MOT-4CH,INTERFACES,Driver,DRV-MOT-4CH,Driver de motor de 4 canales con P
 INT-MCU-S32K312,INTERFACES,Microcontrolador,S32K312,MCU NXP S32K312 para el lazo de control PI/PD/PID de bajo nivel,NXP,PZA,1500,5,0,Socio Formador (recibido),AGV,recibido del profesor
 INT-MIC-FRDM-S32K344,INTERFACES,Microcontrolador,FRDM-S32K344,"Kit de desarrollo FRDM-S32K344 (MCU NXP automotriz, evaluacion previa a S32K312)",NXP,PZA,1107.43,0,1,NXP,AGV,cotizado
 INT-MOD-IO-ETH,INTERFACES,Modulo IO,IO-ETH-16,Modulo IO industrial Ethernet para handshake discreto con el Haas,Wago 750,PZA,6500,0,0,Socio Formador (por recibir),Celda,donado por profesores - pendiente de recibir
-MEC-ALU-AL6061-LOTE,MECANICA,Aluminio,AL6061-LOTE,Aluminio 6061 (lote) - compra MarChina,MarChina,LOTE,1266,1,0,Metales MarChina,Brazo,recibido
 MEC-BAL-RC70,MECANICA,Balero,RC-70MM,Balero de rodillos cruzados 70 mm para junta rotativa del brazo,POR DEFINIR,PZA,2400,0,0,Socio Formador (por recibir),Brazo,donado por profesores - pendiente de recibir
 MEC-CHA-ALU-PERFIL,MECANICA,Estructura,PERFIL-4040,Perfil estructural de aluminio 40x40 para chasis del AGV,Bosch Rexroth,MTR,420,0,2,POR DEFINIR,AGV,por cotizar
 MEC-INS-ROSCADO-LOTE,MECANICA,Inserto,INSERTOS-LOTE,Insertos roscados (lote) - compra Amazon,Generico,LOTE,271,1,0,Amazon,AGV,recibido
@@ -17,7 +16,7 @@ MEC-MOT-CHP42GP775,MECANICA,Motorreductor,CHP-42GP-775,Motorreductor DC 775 con 
 MEC-RIE-LIN-2500,MECANICA,Riel,RIEL-LIN-2500,Riel lineal de 2.5 m como septimo eje externo del cobot,POR DEFINIR,PZA,28000,0,0,Socio Formador (por recibir),Cobot,donado por profesores - pendiente de recibir
 MEC-RUE-MECANUM-100,MECANICA,Rueda,MECANUM-100,"Rueda mecanum 100 mm con rodillos, capacidad 20 kg",Nexus/Generico,PZA,1800,0,3,POR DEFINIR,AGV,por cotizar
 MEC-SOL-AL6061-025X4,MECANICA,Solera,AL6061-025x4,"Solera aluminio 6061-T6 1/4 x 4 in (6.35 x 101.6 mm), corte 1.2 m - eslabones Brazo_2, Brazo_3, Brazo4_1, Brazo1_1",Generico,m,600,0,1,POR DEFINIR,Brazo,descartado
-MEC-SOL-AL6061-025X6,MECANICA,Solera,AL6061-025x6,"Solera aluminio 6061-T6 1/4 x 6 in (6.35 x 152.4 mm), corte 1.2 m - eslabones Brazo_2, Brazo_3, Brazo4_1, Brazo1_1 (MarChina A249cr)",MarChina,m,680.22,0,1,Metales MarChina,Brazo,precio web - confirmar
+MEC-SOL-AL6061-025X6,MECANICA,Solera,AL6061-025x6,"Solera aluminio 6061-T6 1/4 x 6 in (6.35 x 152.4 mm), 4 tramos 40+35+26+12 cm = 1.13 m - eslabones Brazo_2, Brazo_3, Brazo4_1, Brazo1_1",MarChina,m,1120.354,1.13,0,Metales MarChina,Brazo,recibido
 MEC-SOL-AL6061-050X4,MECANICA,Solera,A276,"Solera aluminio 6061-T6 1/2 x 4 in (12.7 x 101.6 mm), corte 0.15 m - pieza Brazo1_2",MarChina,m,809.87,0,1,Metales MarChina,Brazo,precio web - confirmar
 MEC-SOP-ESQUINA-LOTE,MECANICA,Soporte,SOPORTE-ESQ-LOTE,Soportes de esquina (lote) para estructura,Generico,LOTE,240,1,0,Amazon,AGV,recibido
 MEC-TUB-AC-CAL18-LOTE,MECANICA,Tubular,TUB-AC-CAL18-LOTE,Tubulares de acero calibre 18 (lote),Generico,LOTE,366,1,0,Marsa,AGV,recibido
