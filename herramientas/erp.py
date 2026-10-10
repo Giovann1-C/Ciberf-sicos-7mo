@@ -439,7 +439,8 @@ def cmd_estado(a):
         print("\n=== ORDENES DE COMPRA ===")
         print("  Ninguna emitida todavia.")
 
-    sinprov = [m for m in cat if m["proveedor"] in ("POR DEFINIR", "")]
+    sinprov = [m for m in cat if m["proveedor"] in ("POR DEFINIR", "")
+               and not m["estado"].startswith("descartado")]
     if sinprov:
         print("\n=== SIN PROVEEDOR (%d) - bloquean las compras ===" % len(sinprov))
         print("  " + ", ".join(m["codigo_erp"] for m in sinprov))

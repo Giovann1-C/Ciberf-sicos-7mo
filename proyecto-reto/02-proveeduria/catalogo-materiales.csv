@@ -10,7 +10,7 @@ INT-MCU-S32K312,INTERFACES,Microcontrolador,S32K312,MCU NXP S32K312 para el lazo
 INT-MIC-FRDM-S32K344,INTERFACES,Microcontrolador,FRDM-S32K344,"Kit de desarrollo FRDM-S32K344 (MCU NXP automotriz, evaluacion previa a S32K312)",NXP,PZA,1107.43,0,1,NXP,AGV,cotizado
 INT-MOD-IO-ETH,INTERFACES,Modulo IO,IO-ETH-16,Modulo IO industrial Ethernet para handshake discreto con el Haas,Wago 750,PZA,6500,0,0,Socio Formador (por recibir),Celda,donado por profesores - pendiente de recibir
 MEC-BAL-RC70,MECANICA,Balero,RC-70MM,Balero de rodillos cruzados 70 mm para junta rotativa del brazo,POR DEFINIR,PZA,2400,0,0,Socio Formador (por recibir),Brazo,donado por profesores - pendiente de recibir
-MEC-CHA-ALU-PERFIL,MECANICA,Estructura,PERFIL-4040,Perfil estructural de aluminio 40x40 para chasis del AGV,Bosch Rexroth,MTR,420,0,2,POR DEFINIR,AGV,por cotizar
+MEC-CHA-ALU-PERFIL,MECANICA,Estructura,PERFIL-4040,Perfil estructural de aluminio 40x40 para chasis del AGV,Bosch Rexroth,MTR,420,0,2,POR DEFINIR,AGV,descartado - el chasis se hizo de tubular de acero (OF-2026-AGV-002)
 MEC-INS-ROSCADO-LOTE,MECANICA,Inserto,INSERTOS-LOTE,Insertos roscados (lote) - compra Amazon,Generico,LOTE,271,1,0,Amazon,AGV,recibido
 MEC-MOT-CHP42GP775,MECANICA,Motorreductor,CHP-42GP-775,Motorreductor DC 775 con encoder de cuadratura y caja 42GP,CHP,PZA,950,0,0,Socio Formador (por recibir),AGV,donado por profesores - pendiente de recibir
 MEC-RIE-LIN-2500,MECANICA,Riel,RIEL-LIN-2500,Riel lineal de 2.5 m como septimo eje externo del cobot,POR DEFINIR,PZA,28000,0,0,Socio Formador (por recibir),Cobot,donado por profesores - pendiente de recibir
