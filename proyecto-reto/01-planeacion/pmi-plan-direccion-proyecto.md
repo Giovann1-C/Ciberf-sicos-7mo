@@ -166,6 +166,12 @@ Todo cambio de alcance se registra en la base **Tareas del Equipo** de Notion
 con el prefijo `CC-`. Aprueba el director de proyecto tras evaluar impacto en
 cronograma, costo y riesgo. **Ningún cambio se implementa sin registro.**
 
+| ID | Fecha | Cambio | Impacto |
+|---|---|---|---|
+| CC-001 | 2026-10-10 | **La integración con el CNC Haas sale del alcance del Reto** (MTConnect, SMB, handshake por M-códigos). Queda como reto personal opcional de Rodrigo. | Se eliminan los paquetes 1.5.2 y 1.5.4. El módulo I/O Ethernet (`INT-MOD-IO-ETH`) ya no se necesita. La celda cierra en el ciclo AGV + brazo + visión. |
+| CC-002 | 2026-10-10 | **Driver de motores: RoboClaw ST 2x45A** (2 piezas, 2 canales c/u) en lugar del "driver 4CH" genérico. | El PI corre en el S32K312 y al RoboClaw solo se le manda el duty por Packet Serial. El encoder se lee desde el RoboClaw. |
+| CC-003 | 2026-10-10 | **Ruedas mecanum de fabricación propia** (PETG + rodillos TPU 95A, V6) en lugar de comprarlas. | Sale de la lista de compras sin proveedor. Entra a fabricación, con banco de tolerancias como control de calidad previo. |
+
 ---
 
 # 3. Gestión del Cronograma
