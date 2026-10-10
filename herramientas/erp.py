@@ -311,14 +311,42 @@ ESTACIONES = [
     (70, "Liberacion", "Firma de calidad y liberacion al cliente"),
 ]
 
+# Rutas de proceso por tipo de orden. {detalle} se sustituye con --detalle
+# (programa CNC, bruto, lista de corte...).
+RUTAS = {
+    "ensamble": ESTACIONES,
+    "maquinado": [
+        (10, "Almacen / Kitting", "Surtir tramo de solera 6061-T6 y verificar el bruto exacto (el cero G54 va en su esquina)"),
+        (20, "CNC Haas VF-3", "{detalle}. Barrenos con G83 (picoteo 2 mm), luego bolsa y contorno. Refrigerante M08"),
+        (30, "Banco", "Desprender la pieza por la piel de 0.3 mm y desbarbar"),
+        (40, "Inspeccion dimensional", "Verificar contorno, barrenos y bolsa contra plano"),
+        (50, "Liberacion", "Firma de calidad y entrega al ensamble del brazo"),
+    ],
+    "soldadura": [
+        (10, "Almacen / Kitting", "Surtir tubular de acero cal. 18 y verificar lista de corte. {detalle}"),
+        (20, "Corte", "Corte de tramos a medida y desbarbe de extremos"),
+        (30, "Soldadura", "Punteo, verificacion de escuadra y soldadura del bastidor"),
+        (40, "Acabado", "Limpieza y esmerilado de cordones"),
+        (50, "Inspeccion dimensional", "Escuadra, diagonales y planitud del bastidor"),
+        (60, "Liberacion", "Firma de calidad y entrega al subensamble mecanico del AGV"),
+    ],
+}
+
 
 def cmd_of(a):
     import openpyxl
     from openpyxl.styles import Font, Border, Side, PatternFill
 
     reg = os.path.join(OFS, "registro-of.csv")
-    num = siguiente(reg, "OF-2026-AGV", "no_orden")
+    num = siguiente(reg, "OF-2026-" + a.prefijo, "no_orden")
     hoy = datetime.date.today()
+    inicio = a.inicio or hoy.isoformat()
+    ruta_ops = [(op, centro, desc.format(detalle=a.detalle))
+                for op, centro, desc in RUTAS[a.ruta]]
+    for extra in a.op_extra or []:
+        op, centro, desc = extra.split("|", 2)
+        ruta_ops.append((int(op), centro, desc))
+    ruta_ops.sort()
     neg = Font(bold=True)
     borde = Border(left=Side(style="thin"), right=Side(style="thin"),
                    top=Side(style="thin"), bottom=Side(style="thin"))
@@ -333,7 +361,7 @@ def cmd_of(a):
     ws["A4"].font = neg
     ws["A4"].fill = relleno
 
-    cab = [("No Orden Trabajo:", num, "Fecha Inicio:", hoy.strftime("%d/%m/%Y")),
+    cab = [("No Orden Trabajo:", num, "Fecha Inicio:", inicio),
            ("Producto/Parte:", a.parte, "Fecha Entrega:", a.entrega),
            ("Cantidad Requerida:", a.cantidad, "Cliente:", "Reto MR3005C.601 - Socio Formador")]
     for i, (k, v, k2, v2) in enumerate(cab):
@@ -349,9 +377,12 @@ def cmd_of(a):
         c.font = neg
         c.fill = relleno
         c.border = borde
-    for i, (op, centro, desc) in enumerate(ESTACIONES, 1):
+    for i, (op, centro, desc) in enumerate(ruta_ops, 1):
         for j, v in enumerate([op, centro, desc, "", "", "", "", "", ""], 1):
             ws.cell(9 + i, j, v).border = borde
+    if a.notas:
+        ws.cell(11 + len(ruta_ops), 1, "Notas:").font = neg
+        ws.cell(11 + len(ruta_ops), 2, a.notas)
     for col, anch in zip("ABCDEFGHI", [6, 26, 58, 14, 12, 12, 12, 8, 14]):
         ws.column_dimensions[col].width = anch
 
@@ -365,9 +396,9 @@ def cmd_of(a):
         w = csv.writer(f)
         if nuevo:
             w.writerow(["no_orden", "fecha_inicio", "parte", "cantidad", "fecha_entrega", "estado"])
-        w.writerow([num, hoy.isoformat(), a.parte, a.cantidad, a.entrega, "liberada"])
+        w.writerow([num, inicio, a.parte, a.cantidad, a.entrega, a.estado])
 
-    print("OF liberada: %s" % num)
+    print("OF %s: %s" % (a.estado, num))
     print("Hoja viajera: %s" % os.path.relpath(ruta, RAIZ))
     return 0
 
@@ -449,6 +480,14 @@ def main():
     f.add_argument("--parte", required=True)
     f.add_argument("--cantidad", default="1")
     f.add_argument("--entrega", required=True)
+    f.add_argument("--ruta", choices=sorted(RUTAS), default="ensamble")
+    f.add_argument("--prefijo", default="AGV", help="AGV, BRZ, CEL... -> OF-2026-BRZ-001")
+    f.add_argument("--detalle", default="", help="programa CNC, bruto, lista de corte")
+    f.add_argument("--op-extra", action="append", help='"35|Centro|Descripcion"')
+    f.add_argument("--inicio", help="AAAA-MM-DD (por defecto hoy)")
+    f.add_argument("--estado", default="liberada",
+                   choices=["liberada", "en proceso", "terminada", "cancelada"])
+    f.add_argument("--notas", default="")
 
     u = sub.add_parser("actualizar")
     u.set_defaults(f=cmd_actualizar)

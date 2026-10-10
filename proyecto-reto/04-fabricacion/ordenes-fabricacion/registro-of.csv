@@ -1,2 +1,8 @@
 no_orden,fecha_inicio,parte,cantidad,fecha_entrega,estado
 OF-2026-AGV-001,2026-08-25,AGV Mecanum - Prototipo 1,1,2026-10-18,liberada
+OF-2026-BRZ-001,2026-10-05,Brazo_2 - eslabon del brazo (Al 6061-T6 1/4 x 6 in),1,2026-10-10,terminada
+OF-2026-BRZ-002,2026-10-05,Brazo_3 - eslabon del brazo (Al 6061-T6 1/4 x 6 in),1,2026-10-10,terminada
+OF-2026-BRZ-003,2026-10-05,Brazo4_1 - eslabon del brazo (Al 6061-T6 1/4 x 6 in),1,2026-10-10,terminada
+OF-2026-BRZ-004,2026-10-05,Brazo1_1 - eslabon del brazo (Al 6061-T6 1/4 x 6 in),1,2026-10-10,terminada
+OF-2026-BRZ-005,2026-10-05,Brazo1_2 - base del brazo (Al 6061-T6 1/2 x 4 in),1,2026-10-10,terminada
+OF-2026-AGV-002,2026-10-05,Chasis del AGV - bastidor soldado de tubular de acero cal. 18,1,2026-10-10,terminada
