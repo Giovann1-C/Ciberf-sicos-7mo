@@ -30,4 +30,11 @@ _(deja aqui el PDF del datasheet)_
 |---|---|---|---|
 | 2026-09-30 | MarChina web, 1/2 x 4 in 6061-T6 (dado 1241, cod. A276) | $809.87 (al parecer por m; tramo 3.66 m) | stock |
 
+| 2026-10-10 | Metales MarChina (compra real) | $1,005.76/m (prorrateado) | inmediato |
+
 Precio de la pagina, no cotizacion formal. Confirmar unidad del precio y si venden corte de 0.15 m.
+
+## Compra (OC-2026-010, recibida)
+Tramo de **15 cm**, pagado junto con 1.32 m de 1/4 x 6 in: **$1,266.00 en total**. Sin desglose
+del proveedor; se prorrateo por precio web. Detalle en la ficha de `MEC-SOL-AL6061-025X6`.
+Maquinado en OF-2026-BRZ-005.
